@@ -19,9 +19,9 @@ https://www.youtube.com/channel/UCUbgK5E3s4-R57dOpGW1DNA
 
 ## Install server tools
 
-### [Install nginx](nginx.md)
+### Install [nginx](nginx.md)
 
-### [Install mongo](mongo.md)
+### Install [mongo](mongo.md)
 
 ### Install [mysql](mysql.md)
 
