@@ -1,5 +1,9 @@
 # Go React Course  Zach Isaiah lacourse
 
+Example:
+
+https://pr0con.selfmanagedmusician.com/
+
 npm install react react-dom --save
 
 https://pr0con.com/
@@ -15,7 +19,6 @@ Get the name, transfer to Linode.com Server
 pr0con/ubuntu
 
 https://www.youtube.com/channel/UCUbgK5E3s4-R57dOpGW1DNA
-
 
 ## Install server tools
 
