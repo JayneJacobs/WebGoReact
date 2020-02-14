@@ -1,4 +1,4 @@
-# Go React Course  zach Isaiah lacourse
+# Go React Course  Zach Isaiah lacourse
 
 npm install react react-dom --save
 
