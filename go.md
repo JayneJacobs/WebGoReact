@@ -12,6 +12,3 @@ tar -xf go1.13.7.linux-amd64.tar.gz
  
 ln -s /var/www/go/bin/go /usr/sbin
 ```
-
-
-

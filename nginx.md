@@ -11,7 +11,7 @@ cd /etc/nginx
 history
 ```
 
-Set up [nginx/sites-available/<sitename>](sitename)
+Set up ```[nginx/sites-available/<sitename>](sitename)```
 
 ```sh
 /var/www# mkdir parcel_blueprint
@@ -20,7 +20,7 @@ root@gopherclub:/var/www# ln -s /var/www/mkdir parcel_blueprint /etc/nginx/sites
 
 sudo -H ./letsencrypt-auto certonly --standalone -d pr0con.selfmanagedmusician.com -d www.pr0con.selfmanagedmusician.com
 
-root@gopherclub:# 
+root@gopherclub:#
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 Plugins selected: Authenticator standalone, Installer None
 Obtaining a new certificate
@@ -44,7 +44,7 @@ IMPORTANT NOTES:
    Donating to EFF:                    https://eff.org/donate-le
 
 root@gopherclub:/opt/letsencrypt# cd /etc/letsencrypt/
- 
+
 root@gopherclub:/etc/letsencrypt# cd live/
 root@gopherclub:/etc/letsencrypt/live# ls
 gopherclub.jaynejacobs.com  gopherface.jaynejacobs.com  pr0con.selfmanagedmusician.com  README
@@ -65,21 +65,22 @@ root@gopherclub:/var/www/parcel_blueprint# ls
 root@gopherclub:/var/www/parcel_blueprint# mkdir dist
 root@gopherclub:/var/www/parcel_blueprint# cd dist
 root@gopherclub:/var/www/parcel_blueprint/dist# touch index.html
-root@gopherclub:/var/www/parcel_blueprint/dist# vi index.html 
+root@gopherclub:/var/www/parcel_blueprint/dist# vi index.html
 root@gopherclub:/var/www/parcel_blueprint/dist# nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-
-s I looked at /etc/nginx.conf and had to comment out this line
-#include /etc/nginx/sites-enabled/*;
-Then I use nginx -t and it passed
+I looked at /etc/nginx.conf and had to comment out this line
+```#include /etc/nginx/sites-enabled/*;```
+Then I used ```nginx -t``` and it passed
 Now its running just fine
+
+```sh
 ● nginx.service - A high performance web server and a reverse proxy server
 Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
 Active: active (running) since Sun 2020-02-02 22:48:04 UTC; 8s ago
-
+```
 
 Jayne Jacobs Also somehow apache was running Apache/2.4.29 (Ubuntu) Server at pr0con.selfmanagedmusician.com Port 80
 Edit or delete this
@@ -96,4 +97,3 @@ service nginx stop
 netstat | grep 80
 /etc/init.d/apache2 stop
 service nginx start
- 
