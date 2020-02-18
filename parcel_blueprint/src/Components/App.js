@@ -8,7 +8,7 @@ import AppProvider from './AppContext.js';
 
 
 const StyledApp = styled.div`
-border: 1px solid #f00
+
 `;
 
 import { Dashboard } from './Dashboard.js';
