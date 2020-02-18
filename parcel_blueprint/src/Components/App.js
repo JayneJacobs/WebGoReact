@@ -12,11 +12,12 @@ border: 1px solid #f00
 `;
 
 import { Dashboard } from './Dashboard.js';
-
+import { NavBar } from './NavBar.js'
 export function App() {
     return(
         <StyledApp>
             <AppProvider>
+                <NavBar/>
                 <Dashboard />
             </AppProvider>
         </StyledApp>
