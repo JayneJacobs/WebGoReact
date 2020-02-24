@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+
 // Hook based context :: from default fuction
-import AppProvider from './AppContext.js';
-
-
-
-
+import  AppProvider  from './AppContext.js';
+ 
 const StyledApp = styled.div`
-
+	width: 120rem;
+	height: 100vh;
+	margin: 0 auto;
 `;
 
 import { Dashboard } from './Dashboard.js';
-import { NavBar } from './NavBar.js'
+import { NavBar } from './NavBar.js';
+
 export function App() {
     return(
-        <StyledApp>
+        <StyledApp> 
             <AppProvider>
-                <NavBar/>
+                <NavBar />
                 <Dashboard />
             </AppProvider>
         </StyledApp>

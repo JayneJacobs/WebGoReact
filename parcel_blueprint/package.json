@@ -4,7 +4,8 @@
   "description": "## Add [App.js](./src/Components/App.js)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+       "start": "parcel src/index.html --host pr0con.selfmanagedmusician.com --https --cert /etc/letsencrypt/live/pr0con.selfmanagedmusician.com/cert.pem --key /etc/letsencrypt/live/pr0con.selfmanagedmusician.com/privkey.pem --hmr-hostname pr0con.selfmanagedmusician.com --hmr-port 5000 --no-autoinstall --no-source-maps",
+       "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -21,3 +22,4 @@
     "react-json-view": "^1.19.1"
   }
 }
+

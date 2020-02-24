@@ -13,3 +13,16 @@
 Add to ```/etc/nginx/sitesavailable/<sitename>```
 
  add_header Cache-Control no-cache;
+
+
+copy css from the web inspection tool
+
+Get icons: https://Blueprintjs.com/docs/#icons
+
+
+npm install --save @blueprintjs/select
+
+
+styled-components
+
+https://www.styled-components.co/docs
