@@ -17,6 +17,7 @@ sudo apt-get install -y mongodb-org
 ### Configure mongodb
 
 The following are the steps to add addressing
+
 ```sh
 ifconfig
 
@@ -38,7 +39,9 @@ root@pr0con:~# service mongod status
    CGroup: /system.slice/mongod.service
            └─2522 /usr/bin/mongod --config /etc/mongod.conf
 ```
+
 This is the step to add a useer to the admin db.  
+
 ```mongo
 > use admin
 switched to db admin
