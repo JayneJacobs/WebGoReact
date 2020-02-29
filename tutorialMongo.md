@@ -1,4 +1,4 @@
- First Install mongodb
+# First Install mongodb
 
 The following is a link to mongo's documents
 
@@ -13,6 +13,7 @@ echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 ```
+
 ### Configure mongodb
 
 The following are the steps to add addressing
@@ -37,6 +38,25 @@ root@pr0con:~# service mongod status
    CGroup: /system.slice/mongod.service
            └─2522 /usr/bin/mongod --config /etc/mongod.conf
 ```
+This is the step to add a useer to the admin db.  
+```mongo
+> use admin
+switched to db admin
+> db.createUser({
+     user: "mongod",
+     pwd: "ThisPassword",
+     roles: [
+               { role: "userAdminAnyDatabase", db: "admin" },
+               { role: "readWriteAnyDatabase", db: "admin" },
+               { role: "dbAdminAnyDatabase", db: "admin"},
+               { role: "clusterAdmin", db: "admin" }
+            ]
+ })
+Su>
+```
+
+```vi /etc/mongod.conf```
+
 ### Add the following
 
 security:
