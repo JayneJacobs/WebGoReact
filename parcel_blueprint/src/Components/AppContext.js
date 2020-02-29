@@ -44,7 +44,7 @@ const configurationWebsocket = async() => {
         ws.onmessage = function(event) {
             console.log(event);
             let tjo = JSON.parse(event.data);
-            switch(tj9['type']) {
+            switch(tjo['type']) {
                 case "server-ws-connect-success-msg":
                     alert(tjo['data']);
                     default:
@@ -64,8 +64,8 @@ const configurationWebsocket = async() => {
 
 
 useEffect(() => {
-    if(ws === null) { setWs(new WebSocket('wss://pr0con.selfmanagedmusician.com:1200'));}
-    if(ws !== null && rs === 1) { configureWebsocket(); heartbeat(ws);}
+    if(ws === null) { setWs(new WebSocket('wss://pr0con.selfmanagedmusician.com:1200')); }
+    if(ws !== null && rs === 0) { configureWebsocket(); heartbeat(ws);}
 }, [ws,rs])
 
 return(

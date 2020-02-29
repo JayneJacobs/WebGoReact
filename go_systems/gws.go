@@ -18,7 +18,7 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 
 	c, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		fmt.Println("WTF @HandleAPI Ws UpgradeError", err)
+		fmt.Print("WTF @HandleAPI Ws UpgradeError> ", err)
 		return
 	}
 
@@ -32,8 +32,8 @@ Loop:
 			break Loop
 		}
 		switch in.Type {
-		case "retister-client-msg":
-			fmt.Println(in.Data)
+		case "client-hello-msg":
+			procondata.SendMsg("^vAr^", "server-ws-connect-success-msg", "Hello There from Go", c)
 			break
 		default:
 			break

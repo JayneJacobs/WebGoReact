@@ -14,7 +14,7 @@ type Msg struct {
 func SendMsg(j string, t string, d string, c *websocket.Conn) {
 	m := Msg{j, t, d}
 	if err := c.WriteJSON; err != nil {
-		fmt.Println(err, string(m.Jwt))
+		fmt.Println(err, string(err))
 	}
 
 }
