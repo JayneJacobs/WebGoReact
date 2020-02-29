@@ -1,5 +1,6 @@
 # Go React Course  Zach Isaiah lacourse
 
+Udemy Class https://www.udemy.com/course/golang-react-w-node-mongo-redis-mysql-nginx/
 Example:
 
 https://pr0con.selfmanagedmusician.com/
