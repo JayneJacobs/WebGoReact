@@ -24,7 +24,7 @@ https://www.youtube.com/channel/UCUbgK5E3s4-R57dOpGW1DNA
 
 ### Install [nginx](nginx.md)
 
-### Install [mongo](mongod.md)
+### Install [mongo](mongo.md)
 
 ### Install [mysql](mysql.md)
 
