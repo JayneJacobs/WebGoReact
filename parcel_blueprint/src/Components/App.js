@@ -5,10 +5,24 @@ import styled from 'styled-components';
 // Hook based context :: from default fuction
 import  AppProvider  from './AppContext.js';
  
+
 const StyledApp = styled.div`
-	width: 120rem;
-	height: 100vh;
-	margin: 0 auto;
+	#app-content {
+		
+		position:relative;
+		top: 6.5rem;
+		margin: 0 auto;
+		
+		width: 120rem;
+		
+		display: grid;
+		grid-template-columns: 32rem 86.5rem;
+		grid-column-gap: 1.5rem;
+		
+		#app-content-left {
+			padding-top: 1.5rem;
+		}
+	}
 `;
 
 import { Dashboard } from './Dashboard.js';
@@ -19,7 +33,9 @@ export function App() {
         <StyledApp> 
             <AppProvider>
                 <NavBar />
-                <Dashboard />
+                <div id="app-content-right">
+								<Dashboard />
+							</div>
             </AppProvider>
         </StyledApp>
     )

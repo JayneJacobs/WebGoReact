@@ -10,6 +10,9 @@ export default function(props) {
     const [ ws, setRs ] = useState(0);
     const [ ws, setWs ] = useState(null);
 
+    const [ wsId, setWsId] = useState('');
+    const [jwt, setJwt] = useState(null);
+
     const request = async (jwt,type,data) => {
         let payload = {
             jwt,
@@ -46,12 +49,15 @@ const configurationWebsocket = async() => {
             let tjo = JSON.parse(event.data);
             switch(tjo['type']) {
                 case "server-ws-connect-success-msg":
-                    alert(tjo['data']);
+                    setWsId(tjo['data']);
+                        break;
+                case "server-ws-connect-sucess-jwt":
+                setJwt(tjo['data']);
+                        break;
                     default:
                         break;
             }
         }
-
     ws.onclose = function(close_event) {
         console.log(close_event);
     }
@@ -64,7 +70,7 @@ const configurationWebsocket = async() => {
 
 
 useEffect(() => {
-    if(ws === null) { setWs(new WebSocket('wss://pr0con.selfmanagedmusician.com:1200')); }
+    if(ws === null) { setWs(new WebSocket('wss://pr0con.selfmanagedmusician.com:1200/ws')); }
     if(ws !== null && rs === 0) { configureWebsocket(); heartbeat(ws);}
 }, [ws,rs])
 
@@ -73,6 +79,8 @@ return(
             test, setTest,
             rs,
             request,
+            wsId,
+            jwt,
         }}>
             { props.children }
         </AppContext.Provider>

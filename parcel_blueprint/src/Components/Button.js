@@ -74,23 +74,22 @@ const StyledButton = styled.div`
 	.white-button {
 		border-radius: .2rem;
 		font-size: 1.5rem;
-		color: #686f7a;  
+		color: #686f7a;
 		border: 1px solid #686f7a;
-		margin-left: .5rem;
-		color: #fff;
-		border-radius: 3px;
-		background-color: #fff;
-		border: 1px solid transparent;
+		margin-left: .5rem;	
 	}
 	.white-button:hover {
 		cursor: pointer;
-		border: 1px solid gba(20,23.28,.05);
-		border-color: transparent;
-		color: fff;
+		color: #29303b;
+		border-color: #29303b;
 	}
 	:hover {
 		cursor:pointer;
 	}
+		
+	${({ btype }) => btype == "blue" && `
+		text-decoration: underline;
+	`}
 `;
 
 export function Button({ btype, text, icon }) {

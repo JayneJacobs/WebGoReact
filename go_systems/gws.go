@@ -3,9 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
+	"go_systems/pr0config"
 	"go_systems/procondata"
+	"go_systems/proconjwt"
 	"net/http"
 
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
 )
@@ -21,7 +24,12 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 		fmt.Print("WTF @HandleAPI Ws UpgradeError> ", err)
 		return
 	}
+	id, err := uuid.NewRandom()
+	if err != nil {
+		fmt.Println("WTF is up here in handleAPI", err)
+	}
 
+	c.Uuid = "ws-" + id.String()
 Loop:
 	for {
 		in := procondata.Msg{}
@@ -33,7 +41,12 @@ Loop:
 		}
 		switch in.Type {
 		case "client-hello-msg":
-			procondata.SendMsg("^vAr^", "server-ws-connect-success-msg", "Hello There from Go", c)
+			procondata.SendMsg("^vAr^", "server-ws-connect-success-msg", c.Uuid, c)
+			jwt, err := proconjwt.GenerateJWT(pr0config.PrivKeyFile, "fake name", "fake alias", "fake@email.com", "Admin")
+			if err != nil {
+				fmt.Println("Jwt Generation Failed", err)
+			}
+			procondata.SendMsg("^vAr^", "server-ws-connect-sucess-jwt", jwt, c)
 			break
 		default:
 			break
@@ -51,4 +64,5 @@ func main() {
 	//Websocket API
 	r.HandleFunc("/ws", handleAPI)
 	http.ListenAndServeTLS(*addr, "/etc/letsencrypt/live/pr0con.selfmanagedmusician.com/cert.pem", "/etc/letsencrypt/live/pr0con.selfmanagedmusician.com/privkey.pem", r)
+
 }
