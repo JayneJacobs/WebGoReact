@@ -279,10 +279,10 @@ type Conn struct {
 
 	readDecompress         bool // whether last read frame had RSV1 set
 	newDecompressionReader func(io.Reader) io.ReadCloser
-	Uuid                   string // Uuid is added for this project
+	UUID                   string // UUID is added for this project
 }
 
-func newConn(conn net.Conn, isServer bool, readBu fferSize, writeBufferSize int, writeBufferPool BufferPool, br *bufio.Reader, writeBuf []byte) *Conn {
+func newConn(conn net.Conn, isServer bool, readBufferSize, writeBufferSize int, writeBufferPool BufferPool, br *bufio.Reader, writeBuf []byte) *Conn {
 
 	if br == nil {
 		if readBufferSize == 0 {

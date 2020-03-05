@@ -13,8 +13,8 @@ type Msg struct {
 // SendMsg is the Send Method for Msg struct
 func SendMsg(j string, t string, d string, c *websocket.Conn) {
 	m := Msg{j, t, d}
-	if err := c.WriteJSON; err != nil {
-		fmt.Println(err, string(err))
+	if err := c.WriteJSON(m); err != nil {
+		fmt.Println(err)
 	}
 
 }

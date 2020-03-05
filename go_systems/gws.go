@@ -29,7 +29,8 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("WTF is up here in handleAPI", err)
 	}
 
-	c.Uuid = "ws-" + id.String()
+	c.UUID = "ws-" + id.String()
+
 Loop:
 	for {
 		in := procondata.Msg{}

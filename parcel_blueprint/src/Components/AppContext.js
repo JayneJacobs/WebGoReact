@@ -7,7 +7,7 @@ export const AppContext = createContext();
 
 export default function(props) {
     const [ test, setTest ] = useState('This is AppContext');
-    const [ ws, setRs ] = useState(0);
+    const [ rs, setRs ] = useState(0);
     const [ ws, setWs ] = useState(null);
 
     const [ wsId, setWsId] = useState('');

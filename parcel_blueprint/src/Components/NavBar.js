@@ -14,7 +14,7 @@ const StyledNavBar = styled.div`
 	
 	font-size: 2rem;
 	color: #505763;
-	background: #fff;
+	background-color: #ccc;
 	
 	font-family: 'Hackman-Bold';
 	
@@ -27,7 +27,8 @@ const StyledNavBar = styled.div`
 	    display: -webkit-box;
 	    display: -webkit-flex;
 	    display: -ms-flexbox;
-	    display: flex;
+		display: flex;
+		background-color: #ca3;
 	    
 	    
 	    #styled-navbar-content-icon {

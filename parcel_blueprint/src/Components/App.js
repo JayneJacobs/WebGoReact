@@ -8,8 +8,8 @@ import  AppProvider  from './AppContext.js';
 
 const StyledApp = styled.div`
 	#app-content {
-		
-		position:relative;
+		background-color: 532;
+		position: relative;
 		top: 6.5rem;
 		margin: 0 auto;
 		
@@ -34,8 +34,8 @@ export function App() {
             <AppProvider>
                 <NavBar />
                 <div id="app-content-right">
-								<Dashboard />
-							</div>
+				<Dashboard />
+				</div>
             </AppProvider>
         </StyledApp>
     )
