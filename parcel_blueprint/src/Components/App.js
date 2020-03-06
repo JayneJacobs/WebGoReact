@@ -30,7 +30,7 @@ import { Dashboard } from './Dashboard.js';
 import { NavBar } from './NavBar.js';
 
 export function App() {
-    return(<>
+    return(
         <StyledApp> 
 			<AppProvider>
                 <NavBar />
