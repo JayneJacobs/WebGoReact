@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 // Hook based context :: from default fuction
-import  AppProvider  from './AppContext.js';
+import AppProvider from './AppContext.js';
+import { AppContext } from './AppContext.js';
  
 
 const StyledApp = styled.div`
@@ -29,13 +30,11 @@ import { Dashboard } from './Dashboard.js';
 import { NavBar } from './NavBar.js';
 
 export function App() {
-    return(
+    return(<>
         <StyledApp> 
-            <AppProvider>
+			<AppProvider>
                 <NavBar />
-                <div id="app-content-right">
 				<Dashboard />
-				</div>
             </AppProvider>
         </StyledApp>
     )

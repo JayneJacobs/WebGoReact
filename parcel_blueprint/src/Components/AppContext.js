@@ -25,7 +25,7 @@ export default function(props) {
 const heartbeat = async (ws) => {
     setTimeout(
         function() {
-            console.log(ws.readyState)
+            //console.log(ws.readyState)
             /* 0 CONNECTING    Socket ahs been created. The connection is not yest open.
             // 1 OPEN          The connection is open and ready to communicate. 
             // 2 CLOSING       The connection is in the processd of CLOSING
@@ -42,7 +42,7 @@ const heartbeat = async (ws) => {
     );
 }
 
-const configurationWebsocket = async() => {
+const configureWebsocket = async() => {
     ws.onopen = function(open_event) {
         ws.onmessage = function(event) {
             console.log(event);
@@ -52,7 +52,7 @@ const configurationWebsocket = async() => {
                     setWsId(tjo['data']);
                         break;
                 case "server-ws-connect-sucess-jwt":
-                setJwt(tjo['data']);
+                setJwt(tjo['jwt']);
                         break;
                     default:
                         break;
@@ -71,7 +71,7 @@ const configurationWebsocket = async() => {
 
 useEffect(() => {
     if(ws === null) { setWs(new WebSocket('wss://pr0con.selfmanagedmusician.com:1200/ws')); }
-    if(ws !== null && rs === 0) { configureWebsocket(); heartbeat(ws);}
+    if(ws !== null && rs === 0) { configureWebsocket(); heartbeat(ws); }
 }, [ws,rs])
 
 return(
