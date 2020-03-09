@@ -11,7 +11,7 @@ export default function(props) {
     const [ ws, setWs ] = useState(null);
 
     const [ wsId, setWsId] = useState('');
-    const [jwt, setJwt] = useState(null);
+    const [jwt, setJwt] = useState('');
 
     const request = async (jwt,type,data) => {
         let payload = {
@@ -32,8 +32,8 @@ const heartbeat = async (ws) => {
                3 CLOSED        The connection is closed or couldn't be opened. 
             */ 
 
-           if(rs !== ws.readyState){
-                setRS(ws.readyState)
+           if(rs !== ws.readyState) {
+                setRs(ws.readyState)
             }
             heartbeat(ws);
         }
@@ -44,6 +44,7 @@ const heartbeat = async (ws) => {
 
 const configureWebsocket = async() => {
     ws.onopen = function(open_event) {
+
         ws.onmessage = function(event) {
             console.log(event);
             let tjo = JSON.parse(event.data);
@@ -52,7 +53,8 @@ const configureWebsocket = async() => {
                     setWsId(tjo['data']);
                         break;
                 case "server-ws-connect-sucess-jwt":
-                setJwt(tjo['jwt']);
+                    setJwt(tjo['data']);
+                    request(tjo['data'], 'test-jwt-message', 'noop');
                         break;
                     default:
                         break;

@@ -1,7 +1,10 @@
 package procondata
 
-import "fmt"
-import "github.com/gorilla/websocket"
+import (
+	"fmt"
+
+	"github.com/gorilla/websocket"
+)
 
 // Msg is a data struct for the json message
 type Msg struct {
@@ -17,4 +20,18 @@ func SendMsg(j string, t string, d string, c *websocket.Conn) {
 		fmt.Println(err)
 	}
 
+}
+
+// TryUser type is Email and Password
+type TryUser struct {
+	Email    string `json:"user"`
+	Password string `json:"password"`
+}
+
+// AUser  type provides User, Role, FullName, and Password
+type AUser struct {
+	User     string `json:"user"`
+	Role     string `json:"role"`
+	FullName string `json:"fullname"`
+	Password string `json:"password"`
 }

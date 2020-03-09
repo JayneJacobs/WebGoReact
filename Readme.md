@@ -40,3 +40,5 @@ Also Add phpmyadmin to web
 ### Install [Redis](redis.md)
 
 ### npm [setup](node.md)
+
+### Componenents

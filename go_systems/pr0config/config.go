@@ -17,7 +17,7 @@ var (
 
 const (
 	// PKPWD password for key
-	PKPWD = "SOMEHARDPASSWORD"
+	PKPWD = "HARDTOGUESS"
 	// FileStoragePath for uploads
 	FileStoragePath = "/var/www/uploads/"
 	// KeyCertPath  for key

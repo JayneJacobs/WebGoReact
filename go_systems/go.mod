@@ -8,4 +8,5 @@ require (
 	github.com/gorilla/mux v1.7.4
 	github.com/gorilla/websocket v1.4.1
 	github.com/prometheus/procfs v0.0.10 // indirect
+	golang.org/x/crypto v0.0.0-20200302210943-78000ba7a073
 )

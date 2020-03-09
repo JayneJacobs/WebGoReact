@@ -14,14 +14,14 @@ const StyledNavBar = styled.div`
 	
 	font-size: 2rem;
 	color: #505763;
-	background-color: #ccc;
+	background-color: #006;
 	
 	font-family: 'Hackman-Bold';
 	
 	#styled-navbar-content {
 	    position: relative;
 	    width: 1500px;
-	    margin: 0 auto;
+	    margin: 0 auto;d
 	    padding: 10px;
 	    line-height: 4.5rem;
 	    display: -webkit-box;

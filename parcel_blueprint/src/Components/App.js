@@ -28,6 +28,8 @@ const StyledApp = styled.div`
 
 import { Dashboard } from './Dashboard.js';
 import { NavBar } from './NavBar.js';
+import { LogInModal } from './Modals/LoginModal.js';
+import { SignUpModal } from './Modals/SignupModal.js';
 
 export function App() {
     return(
@@ -35,6 +37,8 @@ export function App() {
 			<AppProvider>
                 <NavBar />
 				<Dashboard />
+				<LogInModal />
+				< SignUpModal />
             </AppProvider>
         </StyledApp>
     )

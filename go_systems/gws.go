@@ -6,6 +6,7 @@ import (
 	"go_systems/pr0config"
 	"go_systems/procondata"
 	"go_systems/proconjwt"
+	"go_systems/proconutil"
 	"net/http"
 
 	"github.com/google/uuid"
@@ -21,7 +22,7 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 
 	c, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		fmt.Print("WTF @HandleAPI Ws UpgradeError> ", err)
+		fmt.Println("WTF @HandleAPI Ws UpgradeError> ", err)
 		return
 	}
 	id, err := uuid.NewRandom()
@@ -37,18 +38,35 @@ Loop:
 
 		err := c.ReadJSON(&in)
 		if err != nil {
+			fmt.Println(in.Data, err)
 			c.Close()
 			break Loop
 		}
 		switch in.Type {
-		case "client-hello-msg":
-			procondata.SendMsg("^vAr^", "server-ws-connect-success-msg", c.Uuid, c)
+		case "register-client-msg":
+			procondata.SendMsg("^vAr^", "server-ws-connect-success-msg", c.UUID, c)
 			jwt, err := proconjwt.GenerateJWT(pr0config.PrivKeyFile, "fake name", "fake alias", "fake@email.com", "Admin")
 			if err != nil {
-				fmt.Println("Jwt Generation Failed", err)
+				fmt.Println("Jwt Generation Failed(in gws Loop)", err)
 			}
 			procondata.SendMsg("^vAr^", "server-ws-connect-sucess-jwt", jwt, c)
 			break
+		case "test-jwt-message":
+			valid, err := proconjwt.ValidateJWT(pr0config.PubKeyFile, in.Jwt)
+			if err != nil {
+				fmt.Println(err)
+				procondata.SendMsg("^vAr^", "jwt-token-invalid", err.Error(), c)
+			}
+			if err == nil && valid {
+				fmt.Println("VALID JWT")
+			}
+		case "create-user":
+			fmt.Println(in.Data)
+			usr, pwd, err := proconutil.B64DecodeTryUser(in.Data)
+			if err != nil {
+				fmt.Println(err)
+			}
+			fmt.Println(string(usr), string(pwd))
 		default:
 			break
 		}
