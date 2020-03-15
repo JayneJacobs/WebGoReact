@@ -32,6 +32,6 @@ type TryUser struct {
 type AUser struct {
 	User     string `json:"user"`
 	Role     string `json:"role"`
-	FullName string `json:"fullname"`
-	Password string `json:"password"`
+	FullName string `json:"mongod"`
+	Password string `json:"ThisPassword"`
 }

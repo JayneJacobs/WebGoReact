@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"go_systems/procondata"
 
+	"github.com/gorilla/websocket"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -31,3 +32,11 @@ func GenerateUserPassword(pwdstr string) string {
 	}
 	return string(hp)
 }
+// SendMsg takes three strings and a webspclet cpmmection
+func SendMsg(j string, t string, d string, c *websocket.Conn)  {
+	m := procondata.Msg{j,t,d}
+	if err := c.WriteJSON(m); err != nil {
+		fmt.Println(err)
+	}
+}
+

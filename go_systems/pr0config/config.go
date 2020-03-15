@@ -26,6 +26,14 @@ const (
 	PrivKeyPath = "/var/www/keycertz/mykey.pem"
 	// PubKeyPath pubb
 	PubKeyPath = "/var/www/keycertz/mykey.pub"
+	// MongoHost is the address of the db
+	MongoHost = "127.0.0.1"
+	// MongoUser username string
+	MongoUser = "mongod"
+	// MongoPassword the password string
+	MongoPassword = "SOMEHARDPASSWORD"
+	// Mongodb name of db string
+	MongoDb = "admin"
 )
 
 func init() {

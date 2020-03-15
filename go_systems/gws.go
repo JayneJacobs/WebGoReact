@@ -6,6 +6,7 @@ import (
 	"go_systems/pr0config"
 	"go_systems/procondata"
 	"go_systems/proconjwt"
+	"go_systems/proconmongo"
 	"go_systems/proconutil"
 	"net/http"
 
@@ -67,6 +68,8 @@ Loop:
 				fmt.Println(err)
 			}
 			fmt.Println(string(usr), string(pwd))
+			res := proconmongo.CreateUser(in.Data, c)
+			fmt.Println("Mongo result: ",res)
 		default:
 			break
 		}
