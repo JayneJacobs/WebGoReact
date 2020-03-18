@@ -94,7 +94,7 @@ const StyledButton = styled.div`
 
 export function Button({ btype, text, icon, onClick }) {
 	const handleClick = async () => {
-		onclick();
+		onClick();
 	}
 	return (
 		<StyledButton btype={btype} icon={icon} onClick={ (e) => handleClick() }>

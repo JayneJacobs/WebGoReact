@@ -195,7 +195,7 @@ export function SignUpModal() {
     const [errENV, setErrEnv] = useState(false);	//email not valid
     const [errPSE, setErrPSE] = useState(false);	//password strength err	
 
-    function emailIsValid(emailIsValid) {
+    function emailIsValid(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     }
 

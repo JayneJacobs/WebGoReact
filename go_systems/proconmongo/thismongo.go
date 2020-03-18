@@ -111,7 +111,7 @@ func CreateUser(jsonCreateuser string, ws *websocket.Conn) bool {
 func MongoTryUser(u []byte, p []byte) (bool, *procondata.AUser, error) {
 	var xdoc procondata.AUser
 	collection := client.Database("api").Collection("users")
-	filter := bson.D{{"email", string(u)}}
+	filter := bson.D{{"email", string(e)}}
 	if err := collection.FindOne(ctx, filter).Decode(&xdoc); err != nil {
 		return false, nil, bson.ErrDecodeToNil
 	}
