@@ -92,12 +92,15 @@ const StyledButton = styled.div`
 	`}
 `;
 
-export function Button({ btype, text, icon }) {
-    return(
-        <StyledButton btype={btype} icon={icon}>
-           { btype === "icon-button" && <div className={`${btype} icon`}></div>} 
-            <div className={`${btype} text`}>{text}</div>
+export function Button({ btype, text, icon, onClick }) {
+	const handleClick = async () => {
+		onclick();
+	}
+	return (
+		<StyledButton btype={btype} icon={icon} onClick={ (e) => handleClick() }>
+			{ btype === "icon-button" && <div className={ `${ btype } icon` }></div> }
+			<div className={ `${ btype } text` }>{ text }</div>
 
-        </StyledButton>
-    )
+		</StyledButton>
+	)
 }

@@ -1,7 +1,10 @@
 {
 	"folders": [
 		{
-			"path": "/Users/jjacob151/Library/Mobile Documents/com~apple~CloudDocs/Training/WebGoReact/go_systems"
+			"path": "."
 		}
-	]
+	],
+	"settings": {
+		"go.useLanguageServer": true
+	}
 }

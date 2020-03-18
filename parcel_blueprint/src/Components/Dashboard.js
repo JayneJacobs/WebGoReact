@@ -14,10 +14,10 @@ export function Dashboard() {
     const appState = useContext(AppContext)
     const { rs } = useContext(AppContext)
 
-    return(
+    return (
         <StyledDashboard>
             <ReactJson src={appState} collapsed={true} />
-           Ready State: { rs }
+           Ready State: { rs}
         </StyledDashboard>
     )
 }

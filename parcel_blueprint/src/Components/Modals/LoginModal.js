@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext  } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { AppContext } from '../AppContext.js';
 
@@ -153,36 +153,36 @@ const StyledLogInModal = styled.div`
 `;
 
 export function LogInModal() {
-    const { request, setModal, loginErrMsg } = useContext(AppContext);
-	
-	const [ e, setE ] = useState(''); //email
-	const [ p, setP ] = useState(''); //password...	
-	
-	
+	const { request, setModal, loginErrMsg } = useContext(AppContext);
+
+	const [e, setE] = useState(''); //email
+	const [p, setP] = useState(''); //password...
+
+	const [errMsg, setErrMsg] = useState('');
+
 	const handleSubmit = async() => {
 		let login_user = {
 			email: btoa(e),
 			password: btoa(p),
 		}
-		
-		request("vAr","login-user", JSON.stringify(login_user));		
+
+		request("vAr", "login-user", JSON.stringify(login_user));
 	}
-    return(
+	return (
 		<StyledLogInModal>
 			<div id="login-center-dialog">
 				<div id="login-center-dialog-header">
 					<div id="login-center-dialog-header-text">Log In</div>
 					<div id="login-center-dialog-header-close" onClick={(e) => setModal('none')} ></div>
 				</div>
-				
+
 				<div id="login-center-dialog-form">
-					{ loginErrMsg !== '' && <div id="login-errors">{ loginErrMsg }</div> }
-				
-					<span id="login-center-dialog-form-email-field"><input type="text" placeholder="Email" onChange={(e) => setE(e.target.value)}/></span>
-					<span id="login-center-dialog-form-password-field"><input type="password" placeholder="Password" onChange={(e) => setP(e.target.value)}/></span>
+					{ loginErrMsg !== '' && <div id="login-errors">{ loginErrMsg }</div>}
+					<span id="login-center-dialog-form-email-field"><input type="text" placeholder="Email" onChange={(e) => setE(e.target.value)} /></span>
+					<span id="login-center-dialog-form-password-field"><input type="password" placeholder="Password" onChange={(e) => setP(e.target.value)} /></span>
 					<div id="submit-login-form-btn" onClick={(e) => handleSubmit()}>Login</div>
 				</div>
 			</div>
-		</StyledLogInModal> 
-    )
+		</StyledLogInModal>
+	)
 }

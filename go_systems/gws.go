@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"go_systems/pr0config"
@@ -36,41 +37,77 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 Loop:
 	for {
 		in := procondata.Msg{}
-
+		fmt.Println(&in)
 		err := c.ReadJSON(&in)
 		if err != nil {
-			fmt.Println(in.Data, err)
+			fmt.Println("In Loop Error in ReadJson", in.Data, err)
 			c.Close()
 			break Loop
 		}
+		fmt.Println(in.Type)
 		switch in.Type {
 		case "register-client-msg":
 			procondata.SendMsg("^vAr^", "server-ws-connect-success-msg", c.UUID, c)
-			jwt, err := proconjwt.GenerateJWT(pr0config.PrivKeyFile, "fake name", "fake alias", "fake@email.com", "Admin")
-			if err != nil {
-				fmt.Println("Jwt Generation Failed(in gws Loop)", err)
-			}
-			procondata.SendMsg("^vAr^", "server-ws-connect-sucess-jwt", jwt, c)
 			break
 		case "test-jwt-message":
 			valid, err := proconjwt.ValidateJWT(pr0config.PubKeyFile, in.Jwt)
 			if err != nil {
-				fmt.Println(err)
+				fmt.Println("Error in gws case test-jwt-message", err)
 				procondata.SendMsg("^vAr^", "jwt-token-invalid", err.Error(), c)
+				break
 			}
 			if err == nil && valid {
 				fmt.Println("VALID JWT")
+				break
 			}
 		case "create-user":
-			fmt.Println(in.Data)
+			res := proconmongo.CreateUser(in.Data, c)
+			fmt.Println("Mongo Function Result: ", res)
+			break
+		case "login-user":
 			usr, pwd, err := proconutil.B64DecodeTryUser(in.Data)
 			if err != nil {
-				fmt.Println(err)
+				fmt.Println("Error in gws proconutil.B64DecodeTryUser", err)
+				break
 			}
-			fmt.Println(string(usr), string(pwd))
-			res := proconmongo.CreateUser(in.Data, c)
-			fmt.Println("Mongo result: ",res)
+			vres, auser, err := proconmongo.MongoTryUser(usr, pwd)
+			if err != nil {
+				fmt.Println("Error in gws  case proconmongo.MongoTryUser", err)
+				break
+			}
+			fmt.Println(vres, auser)
+			if vres == true {
+				auser.Password = "F00"
+				fmt.Println(auser)
+				jauser, err := json.Marshal(auser)
+				if err != nil {
+					fmt.Println("Error in gws switch login-user", err)
+				}
+				jwt, err := proconjwt.GenerateJWT(pr0config.PrivKeyFile, auser.Name, "@"+auser.Name, auser.Email, auser.Role)
+				if err != nil {
+					fmt.Println("JWT Generate error in gws.go switch case login-user", err)
+					break
+				}
+				procondata.SendMsg(jwt, "server-ws-connect-success-jwt", string(jauser), c)
+				
+				break
+			}
+			procondata.SendMsg("^vAr^", "server-ws-connect-login-failure", "User not found or invalid credentials", c)
+			fmt.Println("User Not found or invalid credentials")
+			break
+		case "validate-jwt":
+			valid, err := proconjwt.ValidateJWT(pr0config.PubKeyFile, in.Jwt)
+			if err != nil {
+				fmt.Println("Error in gws case test-jwt-message", err)
+				procondata.SendMsg("^vAr^", "jwt-token-invalid", err.Error(), c)
+				break
+			}
+			if err == nil && valid {
+				fmt.Println("VALID JWT")
+				break
+			}
 		default:
+			fmt.Println("Default case: No switch statemens in gws true")
 			break
 		}
 	}

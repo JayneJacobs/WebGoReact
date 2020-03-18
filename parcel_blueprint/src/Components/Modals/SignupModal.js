@@ -185,99 +185,99 @@ z-index: 4;
 
 export function SignUpModal() {
     const { request, setModal } = useContext(AppContext);
-	
-    const [ u, setU ] = useState(''); //user
-    const [ e, setE ] = useState(''); //password...	
-	const [ p, setP ] = useState(''); //password...	
-    
-    
-	const [ errAFR, setErrAFR ] = useState(false);  //all fields required err
-	const [ errENV, setErrEnv ] = useState(false);	//email not valid
-    const [ errPSE, setErrPSE ] = useState(false);	//password strength err	
-    
-    function emailIsValid (emailIsValid){
+
+    const [u, setU] = useState(''); //user
+    const [e, setE] = useState(''); //password...	
+    const [p, setP] = useState(''); //password...	
+
+
+    const [errAFR, setErrAFR] = useState(false);  //all fields required err
+    const [errENV, setErrEnv] = useState(false);	//email not valid
+    const [errPSE, setErrPSE] = useState(false);	//password strength err	
+
+    function emailIsValid(emailIsValid) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     }
-	
-	const handleSubmit = async() => {
+
+    const handleSubmit = async () => {
         setErrAFR(false);
-		setErrEnv(false);
+        setErrEnv(false);
         setErrPSE(false);
-        
-        if( u == "" || e == "" || p == "") {
-			setErrAFR(true);
-			return;
-		}
-		if(!emailIsValid(e)) {
-			setErrEnv(true);
-			return;
-		}
-		
+
+        if (u == "" || e == "" || p == "") {
+            setErrAFR(true);
+            return;
+        }
+        if (!emailIsValid(e)) {
+            setErrEnv(true);
+            return;
+        }
+
 		/*  ^	The password string will start this way 
 			(?=.*[a-z])	The string must contain at least 1 lowercase alphabetical character
 			(?=.*[A-Z])	The string must contain at least 1 uppercase alphabetical character
 			(?=.*[0-9])	The string must contain at least 1 numeric character
 			(?=.[!@#\$%\^&])	The string must contain at least one special character, but we are escaping reserved RegEx characters to avoid conflict
 			(?=.{8,})	The string must be eight characters or longer
-		*/	
-		var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-		
-		//Generally you proabably want to validate & Sanitize input on the server side as well
-		//cause whos to say they couldn't modify the javasript to always be true.
-		if(!strongRegex.test(p)) {
-			setErrPSE(true);
-			return;
+		*/
+        var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+
+        //Generally you proabably want to validate & Sanitize input on the server side as well
+        //cause whos to say they couldn't modify the javasript to always be true.
+        if (!strongRegex.test(p)) {
+            setErrPSE(true);
+            return;
         }
-// the following allows base64 encoding of the email and password
+        // the following allows base64 encoding of the email and password
         let create_user = {
-			name: u,
-			email: btoa(e),
-			password: btoa(p),
-		}
-		
-		request("vAr","create-user", JSON.stringify(create_user));
-	}		
-	
-    return(
-		<StyledSignUpModal>
-			<div id="sign-up-center-dialog">
-				<div id="sign-up-center-dialog-header">
-					<div id="sign-up-center-dialog-header-text">Sign Up</div>
-					<div id="sign-up-center-dialog-header-close" onClick={(e) => setModal('none')} ></div>
-				</div>
-				
-				<div id="sign-up-center-dialog-form">
-					
-					{  (errAFR === true || errENV === true || errPSE === true) &&
-						<div id="sign-up-validation-errors">
-							Form Validation Errors.
+            name: u,
+            email: btoa(e),
+            password: btoa(p),
+        }
+
+        request("vAr", "create-user", JSON.stringify(create_user));
+    }
+
+    return (
+        <StyledSignUpModal>
+            <div id="sign-up-center-dialog">
+                <div id="sign-up-center-dialog-header">
+                    <div id="sign-up-center-dialog-header-text">Sign Up</div>
+                    <div id="sign-up-center-dialog-header-close" onClick={(e) => setModal('none')} ></div>
+                </div>
+
+                <div id="sign-up-center-dialog-form">
+
+                    {(errAFR === true || errENV === true || errPSE === true) &&
+                        <div id="sign-up-validation-errors">
+                            Form Validation Errors.
 							<ul>
-								{ errAFR && <li>All Fields Required</li> }
-								{ errENV && <li>Email is not valid.</li> }
-								
-								
-								{	errPSE &&
-									<>
-										<li>Password Needs Upper Case Letter</li>
-										<li>Password Needs Lower Case Letter</li>
-										<li>Password Needs at least 1 Number</li>
-										<li>Password Needs 8 or More Characters</li>
-										<li>Password Needs at leat 1 Special Character</li>
-									</>
-								}
-							</ul>
-						</div>
-					}	
-                    <span id="sign-up-center-dialog-form-full-name-field"><input type="text" placeholder="Full Name" onChange={(e) => setU(e.target.value)}/></span>
-				
-					<span id="sign-up-center-dialog-form-email-field"><input type="text" placeholder="Email" onChange={(e) => setE(e.target.value)}/></span>
-					<span id="sign-up-center-dialog-form-password-field"><input type="password" placeholder="Password" onChange={(e) => setP(e.target.value)}/></span>
-					
-					<div id="sign-up-password-strength-indicator"><span class="pwd-has-upper-lower"></span><span class="pwd-has-number"></span><span class="pwd-is-special"></span><span class="pwd-is-long"></span></div>	
+                                {errAFR && <li>All Fields Required</li>}
+                                {errENV && <li>Email is not valid.</li>}
+
+
+                                { errPSE &&
+                                    <>
+                                        <li>Password Needs Upper Case Letter</li>
+                                        <li>Password Needs Lower Case Letter</li>
+                                        <li>Password Needs at least 1 Number</li>
+                                        <li>Password Needs 8 or More Characters</li>
+                                        <li>Password Needs at leat 1 Special Character</li>
+                                    </>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    <span id="sign-up-center-dialog-form-full-name-field"><input type="text" placeholder="Full Name" onChange={(e) => setU(e.target.value)} /></span>
+
+                    <span id="sign-up-center-dialog-form-email-field"><input type="text" placeholder="Email" onChange={(e) => setE(e.target.value)} /></span>
+                    <span id="sign-up-center-dialog-form-password-field"><input type="password" placeholder="Password" onChange={(e) => setP(e.target.value)} /></span>
+
+                    <div id="sign-up-password-strength-indicator"><span class="pwd-has-upper-lower"></span><span class="pwd-has-number"></span><span class="pwd-is-special"></span><span class="pwd-is-long"></span></div>
                     <div id="submit-signup-form-btn" onClick={(e) => handleSubmit()}>SignUp</div>
-				</div>
-			</div>
-		</StyledSignUpModal> 
+                </div>
+            </div>
+        </StyledSignUpModal>
     )
 }
 

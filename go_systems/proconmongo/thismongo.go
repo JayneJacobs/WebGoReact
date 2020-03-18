@@ -32,21 +32,21 @@ var client mongo.Client
 var cancel func()
 
 func init() {
-
 	ctx = context.Background()
 	ctx, cancel = context.WithCancel(ctx)
 	defer cancel()
 	ctx = context.WithValue(ctx, HostKey, pr0config.MongoHost)
 	ctx = context.WithValue(ctx, UsernameKey, pr0config.MongoUser)
-	ctx = context.WithValue(ctx, UsernameKey, pr0config.MongoPassword)
-	ctx = context.WithValue(ctx, UsernameKey, pr0config.MongoDb)
+	ctx = context.WithValue(ctx, PasswordKey, pr0config.MongoPassword)
+	ctx = context.WithValue(ctx, DatabaseKey, pr0config.MongoDb)
 
-	uri := fmt.Sprint(`mongodb://%s:%s@%s/%s`,
+	uri := fmt.Sprintf(`mongodb://%s:%s@%s/%s`,
 		ctx.Value(UsernameKey).(string),
 		ctx.Value(PasswordKey).(string),
-		ctx.Value(UsernameKey).(string),
-		ctx.Value(UsernameKey).(string),
+		ctx.Value(HostKey).(string),
+		ctx.Value(DatabaseKey).(string),
 	)
+
 	clientoptions := options.Client().ApplyURI(uri)
 
 	client, err := mongo.Connect(ctx, clientoptions)
@@ -55,7 +55,7 @@ func init() {
 		fmt.Println(err)
 	}
 
-	err := client.Ping(ctx,nil)
+	err = client.Ping(ctx, nil)
 
 	if err != nil {
 		fmt.Println(err)
@@ -63,36 +63,61 @@ func init() {
 	fmt.Println("Mongo Connected")
 
 }
+
 // CreateUser takes a create_user string and returns a status bool
-func CreateUser(json_create_user string, ws *websocket.Conn) bool {
+func CreateUser(jsonCreateuser string, ws *websocket.Conn) bool {
 	user := procondata.AUser{}
-	err := json.Unmarshal([]byte(json_create_user), &user)
-	if err != nil  {
+	err := json.Unmarshal([]byte(jsonCreateuser), &user)
+	if err != nil {
 		fmt.Println("CreateUserin thismongo", err)
 	}
+	usr, pwd, err := proconutil.B64DecodeTryUser(jsonCreateuser)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	user.Email = string(usr)
+	user.Password = string(pwd)
+
 	collection := client.Database("api").Collection("users")
 
 	//Check for a user
-    var xdoc interface{}
-    filter := bson.D{{"user", user.User}}
-    err = collection.FindOne(ctx, filter).Decode(&xdoc)
-    if err != nil{ 
-	    if xdoc == nil {
+	var xdoc interface{}
+	fmt.Println(string(usr), string(pwd))
+	filter := bson.D{{"user", user.Email}}
+	err = collection.FindOne(ctx, filter).Decode(&xdoc)
+	if err != nil {
+		if xdoc == nil {
 			fmt.Println("User available", err)
 			hp := proconutil.GenerateUserPassword(user.Password)
 			user.Password = hp
-			user.Role = "Adminitrator"
-			insertResult, err := collection.InsertOne(ctx,&user )
-		    if err != nil {
-					fmt.Println("Error Inserting Document")
-					return false
-				}
-			fmt.Println("Inserted User: ", insertResult.InsertedID)
-			procondata.SendMsg("vAr","toast-success", "user created successfully", ws)
-			return true
+			user.Role = "Generic"
+			insertResult, err := collection.InsertOne(ctx, &user)
+			if err != nil {
+				fmt.Println("Error Inserting Document")
+				return false
 			}
-			procondata.SendMsg("vAr","rapid-test-user-avail-fail", "User Alread Exists", ws)
-			return false
+			fmt.Println("Inserted User: ", insertResult.InsertedID)
+			procondata.SendMsg("vAr", "toast-success", "user created successfully", ws)
+			return true
 		}
+		proconutil.SendMsg("vAr", "rapid-test-user-avail-fail", "User Alread Exists", ws)
 		return false
+	}
+	return false
+}
+
+// MongoTryUser takes a username and password as a slice of bytes and returns bbool and Userstruct and error
+func MongoTryUser(u []byte, p []byte) (bool, *procondata.AUser, error) {
+	var xdoc procondata.AUser
+	collection := client.Database("api").Collection("users")
+	filter := bson.D{{"email", string(u)}}
+	if err := collection.FindOne(ctx, filter).Decode(&xdoc); err != nil {
+		return false, nil, bson.ErrDecodeToNil
+	}
+	bres, err := proconutil.ValidateUserPassword(p, []byte(xdoc.Password))
+	if err != nil {
+		return false, nil, err
+	}
+	return bres, &xdoc, nil
 }

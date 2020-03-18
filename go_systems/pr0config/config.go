@@ -31,7 +31,7 @@ const (
 	// MongoUser username string
 	MongoUser = "mongod"
 	// MongoPassword the password string
-	MongoPassword = "SOMEHARDPASSWORD"
+	MongoPassword = "ThisPassword"
 	// Mongodb name of db string
 	MongoDb = "admin"
 )
