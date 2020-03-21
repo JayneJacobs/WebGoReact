@@ -196,7 +196,7 @@ export function SignUpModal() {
     const [errPSE, setErrPSE] = useState(false);	//password strength err	
 
     function emailIsValid(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
     const handleSubmit = async () => {
@@ -246,9 +246,9 @@ export function SignUpModal() {
                     <div id="sign-up-center-dialog-header-close" onClick={(e) => setModal('none')} ></div>
                 </div>
 
-                <div id="sign-up-center-dialog-form">
+                <div id="sign-up-centers-dialog-form">
 
-                    {(errAFR === true || errENV === true || errPSE === true) &&
+                    { (errAFR === true || errENV === true || errPSE === true) &&
                         <div id="sign-up-validation-errors">
                             Form Validation Errors.
 							<ul>
@@ -270,10 +270,10 @@ export function SignUpModal() {
                     }
                     <span id="sign-up-center-dialog-form-full-name-field"><input type="text" placeholder="Full Name" onChange={(e) => setU(e.target.value)} /></span>
 
-                    <span id="sign-up-center-dialog-form-email-field"><input type="text" placeholder="Email" onChange={(e) => setE(e.target.value)} /></span>
-                    <span id="sign-up-center-dialog-form-password-field"><input type="password" placeholder="Password" onChange={(e) => setP(e.target.value)} /></span>
+                    <span id="sign-up-center-dialog-form-email-field"><input type="text" placeholder="email" onChange={(e) => setE(e.target.value)} /></span>
+                    <span id="sign-up-center-dialog-form-password-field"><input type="password" placeholder="password" onChange={(e) => setP(e.target.value)} /></span>
 
-                    <div id="sign-up-password-strength-indicator"><span class="pwd-has-upper-lower"></span><span class="pwd-has-number"></span><span class="pwd-is-special"></span><span class="pwd-is-long"></span></div>
+                    <div id="sign-up-password-strength-indicator"><span className="pwd-has-upper-lower"></span><span className="pwd-has-number"></span><span className="pwd-is-special"></span><span className="pwd-is-long"></span></div>
                     <div id="submit-signup-form-btn" onClick={(e) => handleSubmit()}>SignUp</div>
                 </div>
             </div>

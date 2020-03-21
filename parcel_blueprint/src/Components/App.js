@@ -12,7 +12,7 @@ const StyledApp = styled.div`
 		position: fixed;
 		z-index: 2;
 		
-		width: 100vw;
+		width: 10vw;
 		top: 0px;
 		left: 0px;
 		

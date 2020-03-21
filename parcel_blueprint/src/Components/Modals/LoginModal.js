@@ -179,7 +179,7 @@ export function LogInModal() {
 				<div id="login-center-dialog-form">
 					{ loginErrMsg !== '' && <div id="login-errors">{ loginErrMsg }</div>}
 					<span id="login-center-dialog-form-email-field"><input type="text" placeholder="Email" onChange={(e) => setE(e.target.value)} /></span>
-					<span id="login-center-dialog-form-password-field"><input type="password" placeholder="Password" onChange={(e) => setP(e.target.value)} /></span>
+					<span id="login-center-dialog-form-password-field"><input type="password" placeholder="password" onChange={(e) => setP(e.target.value)} /></span>
 					<div id="submit-login-form-btn" onClick={(e) => handleSubmit()}>Login</div>
 				</div>
 			</div>

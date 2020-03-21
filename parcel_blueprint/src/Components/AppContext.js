@@ -9,10 +9,12 @@ export default function(props) {
     const [ws, setWs] = useState(null);
 
     const [wsId, setWsId] = useState('');
-    const [jwt, setJwt] = useState(null);
+    const [jwt, setJwt] = useState("^vAr^");
+    const [ verifiedJwt, setVerifiedJwt ] = useState(null)
     const [user, setUser] = useState('');
     const [modal, setModal] = useState('none');
-    const [loginErrMsg, setloginErrMsg] = useState('');
+    const [loginErrMsg, setLoginErrMsg] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const request = async(jwt, type, data) => {
         let payload = {
@@ -45,7 +47,6 @@ export default function(props) {
 
     const configureWebsocket = async() => {
         ws.onopen = function(open_event) {
-
             ws.onmessage = function(event) {
                 console.log(event);
                 let tjo = JSON.parse(event.data);
@@ -55,12 +56,39 @@ export default function(props) {
                         break;
                     case "server-ws-connect-success-jwt":
                         setJwt(tjo['data']);
-                        let usr = JSON.parse(tjo['data'])
+                        let usr = JSON.parse(tjo['data']);
+                        setUser(usr);
                         request(tjo['jwt'], 'validate-jwt', 'noop');
                         setModal('none');
                         break;
                     case "server-ws-connect-login-failure":
-                        setloginErrMsg(tjo['data'])
+                        setLoginErrMsg(tjo['data']);
+                        break;
+                    case "user-already-exists":
+                        alert("User Exists: ");
+                        break;
+                    case "toast-success":
+                        setModal('none');
+                        break;
+                    case "user-created-successfully":
+                        setModal('none');
+                        break;
+                    case "server-ws-connect-jwt-verified":
+                        setVerifiedJwt(true);
+                        break;
+                    case "server-ws-connect-stored-jwt-verified":
+                        setVerifiedJwt(true);
+                        setJwt(window.localStorage.getItem('Pr0conJwt'));
+                        let storedUser = window.localStorage.getItem('User');
+                        setUser(JSON.parse(storedUser));
+                        break;
+                    case "stored-jwt-token-invalid":
+                        setJwt("^vAr^");
+                        setUser(null);
+                        setLoading(false);
+                        if(window.localStorage.getItem('Pr0conJwt') !== null) {
+                            window.localStorage.removeItem('Pr0conJwt');
+                        }
                         break;
                     default:
                         break;
@@ -82,10 +110,44 @@ export default function(props) {
         if(ws !== null && rs === 0) { configureWebsocket(); heartbeat(ws); }
     }, [ws, rs])
 
+    useEffect(() =>{
+        console.log("AppContext forst useEffect");
+        if (jwt !== '^vAr^' && verifiedJwt) {
+            console.log(jwt);
+            console.log("JWT has been verified..."+verifiedJwt);
+            window.localStorage.setItem('Pr0conJwt',jwt);
+            window.localStorage.setItem('User',JSON.stringify(user));
+        }
+    },[verifiedJwt])
+
+    useEffect(() =>{
+        console.log("AppContext Second useEffect");
+        if ( rs === 1 ) {
+            let storedJwt = window.localStorage.getItem('Pr0con.Jwt');
+            if(storedJwt !== null) {
+                let psjwt = JSON.parse(atob(storedJwt.split('.')[1]));
+                let exp = new Date(psjwt['exp']* 1000).toUTCString();
+                let now = new Date(Date.now()).toUTCString();
+
+                console.log(now);
+                console.log(exp);
+                if(exp > now) {
+                    console.log('Stored Jwt');
+                    ws.request(storedJwt,'validate-stored-jwt-token','noop');
+                }
+                if(exp < now) {  
+                    setLoading(false);
+                    window.localStorage.removeItem('Pr0conJwt');
+                }
+            } else if (storedJwt === null){
+                    setLoading(false);
+            }
+        }
+    },[rs])
+
     return (
         <AppContext.Provider value={{
-            test,
-            setTest,
+            test, setTest,
             rs,
             request,
             wsId,
@@ -93,7 +155,9 @@ export default function(props) {
             user,
             modal,
             setModal,
-            loginErrMsg
+            loginErrMsg,
+            loading,
+            verifiedJwt,
         }}>
             {props.children}
         </AppContext.Provider>

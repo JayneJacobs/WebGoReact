@@ -109,3 +109,12 @@ Okay i still forget to do that to this day.. a couple of tricks i picked up are
 4. Create a new user and password
 
 5. connect  find / remove other user
+
+
+### Error 
+root@pr0con:/tmp# chown -R mongodb:mongodb /var/lib/mongodb
+root@pr0con:/tmp# chown mongodb:mongodb /tmp/mongodb-27017.sock
+root@pr0con:/tmp# service mongod start
+root@pr0con:/tmp# service mongod status
+
+

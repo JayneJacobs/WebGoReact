@@ -87,9 +87,10 @@ func CreateUser(jsonCreateuser string, ws *websocket.Conn) bool {
 	filter := bson.D{{"user", user.Email}}
 	err = collection.FindOne(ctx, filter).Decode(&xdoc)
 	if err != nil {
+		fmt.Println("User available", err)
 		if xdoc == nil {
-			fmt.Println("User available", err)
 			hp := proconutil.GenerateUserPassword(user.Password)
+			fmt.Println("In in thismongo if xdoc == nil")
 			user.Password = hp
 			user.Role = "Generic"
 			insertResult, err := collection.InsertOne(ctx, &user)
@@ -99,11 +100,14 @@ func CreateUser(jsonCreateuser string, ws *websocket.Conn) bool {
 			}
 			fmt.Println("Inserted User: ", insertResult.InsertedID)
 			procondata.SendMsg("vAr", "toast-success", "user created successfully", ws)
+			procondata.SendMsg("vAr", "user-created-successfully", "user created successfully", ws)
+
 			return true
 		}
-		proconutil.SendMsg("vAr", "rapid-test-user-avail-fail", "User Alread Exists", ws)
+		proconutil.SendMsg("vAr", "user-already-exists", "User Alread Exists", ws)
 		return false
 	}
+	fmt.Println("In in thismongo no if statements ran")
 	return false
 }
 
@@ -111,9 +115,9 @@ func CreateUser(jsonCreateuser string, ws *websocket.Conn) bool {
 func MongoTryUser(u []byte, p []byte) (bool, *procondata.AUser, error) {
 	var xdoc procondata.AUser
 	collection := client.Database("api").Collection("users")
-	filter := bson.D{{"email", string(e)}}
+	filter := bson.D{{"email", string(u)}}
 	if err := collection.FindOne(ctx, filter).Decode(&xdoc); err != nil {
-		return false, nil, bson.ErrDecodeToNil
+		return false, nil, err
 	}
 	bres, err := proconutil.ValidateUserPassword(p, []byte(xdoc.Password))
 	if err != nil {
