@@ -15,7 +15,9 @@ export default function(props) {
     const [modal, setModal] = useState('none');
     const [loginErrMsg, setLoginErrMsg] = useState('');
     const [loading, setLoading] = useState(true);
-
+    const [ dropMenu, setDropMenu ] = useState('none')
+    const [ dropMenuLeft, setDropMenuLeft ] = useState(null);
+    const [ dropMenuRightt, setDropMenuRight ] = useState(null);
     const request = async(jwt, type, data) => {
         let payload = {
             jwt,
@@ -108,7 +110,7 @@ export default function(props) {
     useEffect(() => {
         if(ws === null) { setWs(new WebSocket('wss://pr0con.selfmanagedmusician.com:1200/ws')); }
         if(ws !== null && rs === 0) { configureWebsocket(); heartbeat(ws); }
-    }, [ws, rs])
+    }, [ws, rs]);
 
     useEffect(() =>{
         console.log("AppContext forst useEffect");
@@ -118,7 +120,7 @@ export default function(props) {
             window.localStorage.setItem('Pr0conJwt',jwt);
             window.localStorage.setItem('User',JSON.stringify(user));
         }
-    },[verifiedJwt])
+    },[verifiedJwt]);
 
     useEffect(() =>{
         console.log("AppContext Second useEffect");
@@ -145,9 +147,19 @@ export default function(props) {
         }
     },[rs])
 
+    useEffect(() => {
+        if (loading === false) {
+            const fetchData = async () => {
+                const result = await axios('https://pr0con.selfmanagedmusician.com:1200/rest/api/ui/navbar-drop-menu-resources');
+
+            }
+        }
+    }),[loading]
+
     return (
         <AppContext.Provider value={{
-            test, setTest,
+            test,
+            setTest,
             rs,
             request,
             wsId,
@@ -158,6 +170,8 @@ export default function(props) {
             loginErrMsg,
             loading,
             verifiedJwt,
+            dropMenu,
+            setDropMenu,
         }}>
             {props.children}
         </AppContext.Provider>

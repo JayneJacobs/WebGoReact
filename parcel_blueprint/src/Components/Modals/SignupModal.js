@@ -273,7 +273,7 @@ export function SignUpModal() {
                     <span id="sign-up-center-dialog-form-email-field"><input type="text" placeholder="email" onChange={(e) => setE(e.target.value)} /></span>
                     <span id="sign-up-center-dialog-form-password-field"><input type="password" placeholder="password" onChange={(e) => setP(e.target.value)} /></span>
 
-                    <div id="sign-up-password-strength-indicator"><span className="pwd-has-upper-lower"></span><span className="pwd-has-number"></span><span className="pwd-is-special"></span><span className="pwd-is-long"></span></div>
+                    <div id="sign-up-password-strength-indicator"><span id="pwd-has-upper-lower"></span><span id="pwd-has-number"></span><span className="pwd-is-special"></span><span className="pwd-is-long"></span></div>
                     <div id="submit-signup-form-btn" onClick={(e) => handleSubmit()}>SignUp</div>
                 </div>
             </div>

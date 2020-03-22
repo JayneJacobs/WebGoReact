@@ -7,10 +7,18 @@ import AppProvider from './AppContext.js';
 import { AppContext } from './AppContext.js';
 
 
+
 const StyledApp = styled.div`
 	#app-content {
-		position: fixed;
+		position: relative;
+		top: 6.5rem;
+		margin: 0 auto;
 		z-index: 2;
+		display: gid;
+		grid-template-columns: 32rem 86.5rem;
+		grid-column-gap: 1.5rem;
+		width: 120rem;
+	}
 		
 		width: 10vw;
 		top: 0px;
@@ -30,20 +38,28 @@ import { Dashboard } from './Dashboard.js';
 import { NavBar } from './NavBar.js';
 import { LogInModal } from './Modals/LoginModal.js';
 import { SignUpModal } from './Modals/SignupModal.js';
+import { Loader } from './Loader';
 
 
 export function App() {
-
 	return (
 		<StyledApp>
 			<AppProvider>
 				<AppContext.Consumer>
-					{({ modal }) => (
+					{({ loading, modal, setModal, setDropMenu }) => (
 						<>
-							<NavBar id="app-content" />
-							<Dashboard />
+							<NavBar />
+
 							{modal === 'login' && <LogInModal />}
 							{modal === 'signup' && < SignUpModal />}
+							<div id="app-content" onHover={ (e) => setDropMenu('none') } >
+							<div id="app-content-left" >
+							</div>
+								<div id="app-content-right">
+									<Dashboard />
+								</div>
+							</div>
+							{ loading === true &&  < Loader /> } 
 						</>
 					)}
 				</AppContext.Consumer>
