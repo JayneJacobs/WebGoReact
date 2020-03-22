@@ -17,11 +17,12 @@ import (
 )
 
 var addr = flag.String("addr", "0.0.0.0:1200", "http service address")
-var upgrader = websocket.Upgrader{} // default options
+var upgrader = websocket.Upgrader{} // default options 
 
 func handleAPI(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Content-Type", "application/json")
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
-
 	c, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		fmt.Println("WTF @HandleAPI Ws UpgradeError> ", err)
@@ -51,6 +52,7 @@ Loop:
 		case "register-client-msg":
 			fmt.Println("message received: register-client-msg")
 			procondata.SendMsg("^vAr^", "server-ws-connect-success-msg", c.UUID, c)
+			break
 		case "test-jwt-message":
 			valid, err := proconjwt.ValidateJWT(pr0config.PubKeyFile, in.Jwt)
 			if err != nil {
@@ -63,6 +65,7 @@ Loop:
 		case "create-user":
 			res := proconmongo.CreateUser(in.Data, c)
 			fmt.Println("Mongo Function Result: ", res)
+			break
 		case "user-created-successfully":
 			fmt.Println("User Created Successfully: ")
 		case "login-user":
@@ -101,7 +104,7 @@ Loop:
 			valid, err := proconjwt.ValidateJWT(pr0config.PubKeyFile, in.Jwt)
 			fmt.Println(in.Jwt)
 			if err != nil {
-				fmt.Println("Error in gws case test-jwt-message", err)
+				fmt.Println("Error in gws case validate-stored-jwt", err)
 				if in.Type  == "validate-jwt" {
 					procondata.SendMsg("^vAr^", "jwt-token-invalid", err.Error(), c)
 				}
@@ -124,6 +127,16 @@ Loop:
 		}
 	}
 }
+func handleUI(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	component := params["component"]
+
+	fmt.Println(component);
+
+	proconmongo.MongoGetUIComponent(component, w)	
+}
 
 func main() {
 	fmt.Println("This is from the Go Main Fumction")
@@ -135,5 +148,6 @@ func main() {
 	//Websocket API
 	r.HandleFunc("/ws", handleAPI)
 	http.ListenAndServeTLS(*addr, "/etc/letsencrypt/live/pr0con.selfmanagedmusician.com/cert.pem", "/etc/letsencrypt/live/pr0con.selfmanagedmusician.com/privkey.pem", r)
-
+	//Rest API
+	r.HandleFunc("/rest/api/ui/{component}", handleUI)
 }

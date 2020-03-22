@@ -7,6 +7,7 @@ import (
 	"go_systems/pr0config"
 	"go_systems/procondata"
 	"go_systems/proconutil"
+	"net/http"
 
 	"github.com/gorilla/websocket"
 	"go.mongodb.org/mongo-driver/bson"
@@ -87,15 +88,16 @@ func CreateUser(jsonCreateuser string, ws *websocket.Conn) bool {
 	filter := bson.D{{"user", user.Email}}
 	err = collection.FindOne(ctx, filter).Decode(&xdoc)
 	if err != nil {
-		fmt.Println("User available", err)
+		fmt.Println("User Exists, generated in thismongo.go  by collectio.FindOne", err)
 		if xdoc == nil {
+			fmt.Println("xdoc nil", xdoc)
 			hp := proconutil.GenerateUserPassword(user.Password)
 			fmt.Println("In in thismongo if xdoc == nil")
 			user.Password = hp
 			user.Role = "Generic"
 			insertResult, err := collection.InsertOne(ctx, &user)
 			if err != nil {
-				fmt.Println("Error Inserting Document")
+				fmt.Println("Error Inserting Document with collection.InsertOne")
 				return false
 			}
 			fmt.Println("Inserted User: ", insertResult.InsertedID)
@@ -104,7 +106,7 @@ func CreateUser(jsonCreateuser string, ws *websocket.Conn) bool {
 
 			return true
 		}
-		proconutil.SendMsg("vAr", "user-already-exists", "User Alread Exists", ws)
+		proconutil.SendMsg("vAr", "user-already-exists", "User Already Exists", ws)
 		return false
 	}
 	fmt.Println("In in thismongo no if statements ran")
@@ -124,4 +126,17 @@ func MongoTryUser(u []byte, p []byte) (bool, *procondata.AUser, error) {
 		return false, nil, err
 	}
 	return bres, &xdoc, nil
+}
+
+// MongoGetUIComponent takes a string and Response Writer from http package
+// It defines teh ui db api
+func MongoGetUIComponent(component string, w http.ResponseWriter ) {
+	var xdoc map[string]interface{}
+	collection := client.Database("api").Collection("ui")		
+	
+	filter := bson.D{{"component", component}}
+	
+	if err  := collection.FindOne(ctx, filter).Decode(&xdoc); err != nil { fmt.Println(err) }  
+	json.NewEncoder(w).Encode(&xdoc)  
+
 }
