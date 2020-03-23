@@ -10,14 +10,18 @@ export default function(props) {
 
     const [wsId, setWsId] = useState('');
     const [jwt, setJwt] = useState("^vAr^");
-    const [ verifiedJwt, setVerifiedJwt ] = useState(null)
+    const [ verifiedJwt, setVerifiedJwt ] = useState(null);
+
+
     const [user, setUser] = useState('');
+
     const [modal, setModal] = useState('none');
     const [loginErrMsg, setLoginErrMsg] = useState('');
     const [loading, setLoading] = useState(true);
-    const [ dropMenu, setDropMenu ] = useState('none')
+
+    const [ dropMenu, setDropMenu ] = useState('none');
     const [ dropMenuLeft, setDropMenuLeft ] = useState(null);
-    const [ dropMenuRightt, setDropMenuRight ] = useState(null);
+    const [ dropMenuRight, setDropMenuRight ] = useState(null);
     const request = async(jwt, type, data) => {
         let payload = {
             jwt,
@@ -145,17 +149,31 @@ export default function(props) {
                     setLoading(false);
             }
         }
-    },[rs])
+    },[rs]);
 
     useEffect(() => {
         if (loading === false) {
             const fetchData = async () => {
-                const result = await axios('https://pr0con.selfmanagedmusician.com:1200/rest/api/ui/navbar-drop-menu-resources');
-
+                const resL = await axios('https://pr0con.selfmanagedmusician.com:1200/rest/api/ui/navbar-drop-menu-resources');
+                const resR = await axios('https://pr0con.selfmanagedmusician.com:1200/rest/api/ui/navbar-drop-menu-profile');
+                console.log(resL.data.elements);
+                console.log(resR.data.elements);
+                setDropMenuLeft(resL.data.elements);
+                setDropMenuRight(resR.data.elements);
             }
+            fetchData();
+                
         }
-    }),[loading]
+        
+    },[loading]);
 
+    const doLogOut = async() => {
+		setJwt('^vAr^');
+		setUser(null);
+		setVerifiedJwt(null);
+		window.localStorage.removeItem('Pr0conJwt'); 
+    }
+    
     return (
         <AppContext.Provider value={{
             test,
@@ -172,6 +190,10 @@ export default function(props) {
             verifiedJwt,
             dropMenu,
             setDropMenu,
+            dropMenuLeft,
+            dropMenuRight,
+
+            doLogOut,
         }}>
             {props.children}
         </AppContext.Provider>

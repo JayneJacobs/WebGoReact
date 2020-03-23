@@ -83,13 +83,12 @@ z-index: 4;
             input {
                 border-radius: 5px;
                 width: 100%;
-                color:
-                #29303b;
+                color: #29303b;
                 font-size: 18px;
                 height: auto;
                 padding: 11px 60px 12px 40px;
                 border: 1px solid;
-                #cacbcc;				
+                background:  #cacbcc;				
             }
         }
         
@@ -232,7 +231,7 @@ export function SignUpModal() {
         let create_user = {
             name: u,
             email: btoa(e),
-            password: btoa(p),
+            password: btoa(p)
         }
 
         request("vAr", "create-user", JSON.stringify(create_user));
@@ -252,8 +251,8 @@ export function SignUpModal() {
                         <div id="sign-up-validation-errors">
                             Form Validation Errors.
 							<ul>
-                                {errAFR && <li>All Fields Required</li>}
-                                {errENV && <li>Email is not valid.</li>}
+                                { errAFR && <li>All Fields Required</li> }
+                                { errENV && <li>Email is not valid.</li> }
 
 
                                 { errPSE &&

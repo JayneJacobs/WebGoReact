@@ -130,7 +130,9 @@ func MongoTryUser(u []byte, p []byte) (bool, *procondata.AUser, error) {
 
 // MongoGetUIComponent takes a string and Response Writer from http package
 // It defines teh ui db api
-func MongoGetUIComponent(component string, w http.ResponseWriter ) {
+func MongoGetUIComponent(component string, w http.ResponseWriter) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+    w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	var xdoc map[string]interface{}
 	collection := client.Database("api").Collection("ui")		
 	

@@ -26,3 +26,13 @@ npm install --save @blueprintjs/select
 styled-components
 
 https://www.styled-components.co/docs
+
+#PM2
+
+in node directory
+npm install pm2 -g
+
+ ln -s /var/www/parcel_blueprint/dist/node/bin/
+ pm2 dashboard
+ 
+npm install xterm

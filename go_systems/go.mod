@@ -3,6 +3,7 @@ module go_systems
 go 1.12
 
 require (
+	github.com/creack/pty v1.1.9
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/google/uuid v1.1.1
 	github.com/gorilla/mux v1.7.4

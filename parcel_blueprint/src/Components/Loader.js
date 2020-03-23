@@ -25,15 +25,15 @@ const StyledLoader = styled.div`
 	  background: rgb(236, 82, 82);
 	  -webkit-animation: ${loadA} 1s infinite ease-in-out;
 	  animation: ${loadA} 1s infinite ease-in-out;
-	  width: 1em;
-	  height: 4em;
+	  width: 1rem;
+	  height: 4rem;
 	}
 	.loader {
 	  color: rgb(236, 82, 82);
-	  text-indent: -9999em;
+	  text-indent: -9999rem;
 	  margin: 88px auto;
 	  position: relative;
-	  font-size: 11px;
+	  font-size: 15px;
 	  -webkit-transform: translateZ(0);
 	  -ms-transform: translateZ(0);
 	  transform: translateZ(0);
@@ -47,12 +47,12 @@ const StyledLoader = styled.div`
 	  content: '';
 	}
 	.loader:before {
-	  left: -1.5em;
+	  left: -1.5rem;
 	  -webkit-animation-delay: -0.32s;
 	  animation-delay: -0.32s;
 	}
 	.loader:after {
-	  left: 1.5em;
+	  left: 1.5rem;
 	}
 `;
 

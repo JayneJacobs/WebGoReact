@@ -9,29 +9,6 @@ import { AppContext } from './AppContext.js';
 
 
 const StyledApp = styled.div`
-	#app-content {
-		position: relative;
-		top: 6.5rem;
-		margin: 0 auto;
-		z-index: 2;
-		display: gid;
-		grid-template-columns: 32rem 86.5rem;
-		grid-column-gap: 1.5rem;
-		width: 120rem;
-	}
-		
-		width: 10vw;
-		top: 0px;
-		left: 0px;
-		
-		height: 6.5rem;
-		box-shadow: 0 0 1px 1px rgba(20,23,28,.1),0 3px 1px 0 rgba(20,23,28,.1);
-		
-		font-size: 2rem;
-		color: #505763;
-		background-color: #006;
-		
-		font-family: 'Hackman-Bold';
 `;
 
 import { Dashboard } from './Dashboard.js';

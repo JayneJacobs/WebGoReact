@@ -5,7 +5,6 @@ import (
 	"flag"
 	"fmt"
 	"go_systems/pr0config"
-	"go_systems/pr0conpty"
 	"go_systems/procondata"
 	"go_systems/proconjwt"
 	"go_systems/proconmongo"
@@ -131,11 +130,9 @@ Loop:
 func handleUI(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	component := params["component"]
-
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-    w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Allow-Origin", "pr0con.selfmanagedmusician.com")
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Println(component)
+	fmt.Println(component);
 
 	proconmongo.MongoGetUIComponent(component, w)	
 }
@@ -147,15 +144,9 @@ func main() {
 	// look into subrouter
 	r := mux.NewRouter()
 
-	
 	//Websocket API
 	r.HandleFunc("/ws", handleAPI)
-	r.HandleFunc("/ws", pr0conpty.HandlePty)
-
+	http.ListenAndServeTLS(*addr, "/etc/letsencrypt/live/pr0con.selfmanagedmusician.com/cert.pem", "/etc/letsencrypt/live/pr0con.selfmanagedmusician.com/privkey.pem", r)
 	//Rest API
 	r.HandleFunc("/rest/api/ui/{component}", handleUI)
-
-
-	http.ListenAndServeTLS(*addr, "/etc/letsencrypt/live/pr0con.selfmanagedmusician.com/cert.pem", "/etc/letsencrypt/live/pr0con.selfmanagedmusician.com/privkey.pem", r)
-
 }

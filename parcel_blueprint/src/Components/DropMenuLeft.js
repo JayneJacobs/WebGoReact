@@ -42,7 +42,7 @@ const StyledDropMenuLeft = styled.div`
 		width: 100%;
 		color: #007791;
 		font-size: 1.5rem;
-		font-weight: 400;
+		font-weight: 400 ;
 		display:flex;
 		padding: 5px 15px;
 		flex-direction: row;
@@ -56,11 +56,35 @@ const StyledDropMenuLeft = styled.div`
 	}	
 `;
 
+const DynamicIcon = styled.span`
+	display:inline-block;
+	background: #a1a7b3;
+	width: 2rem;
+	height: 2rem;
+	mask: ${props => `url(${props.svgIconUrl}) no-repeat center center;`});
+	mask-size: 2rem;
+	margin-right: 1.5rem;
+`;
+
 export function DropMenuLeft() {
-    const { dropMenuLeft, setDropMenu } = useContext(AppContext)
-   return(
+    const { dropMenuLeft, setDropMenu } = useContext(AppContext);
+
+	const doAction = async(action, parameter) => {
+		switch(action) {
+			case "load-resource-file":
+				alert(action, parameter);
+				setDropMenu('none');
+				break;
+			default:
+				break;
+		}
+	}
+
+	return(
     <StyledDropMenuLeft>
-        drop menu left
+        { (dropMenuLeft !== null && dropMenuLeft.length > 0) && dropMenuLeft.map((el,i) => (
+				<div key={i} className={el.type} onClick={(e) => doAction(el.action, el.parameter)}><DynamicIcon svgIconUrl={`/icons/20px/${el.icon}.svg`} />{ el.text }</div>
+			))}
     </ StyledDropMenuLeft>
     )
 }

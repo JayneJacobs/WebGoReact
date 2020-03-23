@@ -10,6 +10,8 @@ https://nodejs.org/en/download/current/
   mv node-v13.8.0-linux-x64/ node
   ln -s /var/www/parcel_blueprint/dist/node/bin/npm /usr/sbin/
   ln -s /var/www/parcel_blueprint/dist/node/bin/node /usr/sbin/
+    ln -s /var/www/node/bin/npm /usr/sbin/
+  ln -s /var/www/node/bin/node /usr/sbin/
   npm
   node
   ```
@@ -71,4 +73,10 @@ then enter  ,, to save
 
 npm install parcel-bundler --save
 
- 
+ root@pr0con:/var/www/parcel_blueprint/dist# rm -f /usr/sbin/npm /usr/sbin/node /usr/sbin/pm2
+root@pr0con:/var/www/parcel_blueprint/dist# ln -s /var/www/node/bin/node /usr/sbin/
+root@pr0con:/var/www/parcel_blueprint/dist#  ln -s /var/www/node/bin/npm /usr/sbin/
+root@pr0con:/var/www/parcel_blueprint/dist# ln -s /var/www/ode/bin/pm2 /usr/sbin/
+
+
+npm run start
