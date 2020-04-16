@@ -116,5 +116,3 @@ root@pr0con:/tmp# chown -R mongodb:mongodb /var/lib/mongodb
 root@pr0con:/tmp# chown mongodb:mongodb /tmp/mongodb-27017.sock
 root@pr0con:/tmp# service mongod start
 root@pr0con:/tmp# service mongod status
-
-

@@ -7,7 +7,7 @@ const StyledDropMenuRight = styled.div`
 	position: absolute;
 	z-index: 4;
 	top: 6.5rem;
-	right: 380px;
+	right: 418px;
 	min-width: 30rem;
 	min-height: 10rem;
 	border: none;
@@ -19,42 +19,40 @@ const StyledDropMenuRight = styled.div`
 	font-size: 13px;
 	background: #fff;
 	padding: 15px 0 15px 0;
-	
-	
+
 	font-family: 'Hackman';
 	-moz-osx-font-smoothing: grayscale;
-		
-	&:after{
-		right: auto;
-		left: 12px;
+	
+	&:after {
+		left: auto;
+		right: 12px;
 		border-color: transparent transparent #fff transparent;
-		top: -12px;
-		box-sizing: border-box;
-		border-style: solid;
-		border-width: 0 10px 13px;
-		content: '' !important;
-		height: 0;
-		position: absolute;
-		width: 0;	
+	    top: -12px;
+	    box-sizing: border-box;
+	    border-style: solid;
+	    border-width: 0 10px 13px;
+	    content: '' !important;
+	    height: 0;
+	    position: absolute;
+	    width: 0;
 	}
 	
-	.icon-text-link-item {
-		width: 100%;
+	.text-link-item {
+		height: 4.2rem;
 		color: #007791;
 		font-size: 1.5rem;
-		font-weight: 400;
-		display: flex;
-		padding: 5px 15px;
-		flex-direction: row;
-		align-items: center;
-		max-height: 3rem;
-
+		font-weight: 600;
+		padding: 10px 22px;
+		width: 100%;
+		position: relative;
+		line-height: 2.2rem;
 	}
-	.icon-text-link-item:hover {
+	.text-link-item:hover {
 		background: #f2f3f5;
-		cursor: pointer;
+		cursor:pointer;
 	}	
 `;
+
 
 const DynamicIcon = styled.span`
 	display:inline-block;
@@ -67,16 +65,13 @@ const DynamicIcon = styled.span`
 `;
 
 export function DropMenuRight() {
-	const { DropMenuRight, setDropMenu, doLogOut } = useContext(AppContext);
+	const { dropMenuRight, setDropMenu, doLogOut } = useContext(AppContext);
 	
 	const doAction = async(action, parameter) => {
 		switch(action) {
 			case "log-out":
 				console.log(action, parameter);
-				setDropMenu('none');
-				break;
-			case "load-resource-file":
-				alert(action, parameter);
+				doLogOut();
 				setDropMenu('none');
 				break;
 			default:
@@ -88,7 +83,8 @@ export function DropMenuRight() {
 	  <StyledDropMenuRight>
         { (dropMenuRight !== null && dropMenuRight.length > 0) && dropMenuRight.map((el, i) => (
 				<div key={i} className={el.type} onClick={(e) => doAction(el.action, el.parameter)}><DynamicIcon svgIconUrl={`/icons/20px/${el.icon}.svg`} />{ el.text }</div>
-			))}
+			)
+			)}
 	   </StyledDropMenuRight>
 	   )
 }

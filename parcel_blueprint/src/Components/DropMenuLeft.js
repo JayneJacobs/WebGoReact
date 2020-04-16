@@ -67,7 +67,7 @@ const DynamicIcon = styled.span`
 `;
 
 export function DropMenuLeft() {
-    const { dropMenuLeft, setDropMenu } = useContext(AppContext);
+    const { dropMenuLeft, setDropMenu } = useContext(AppContext)
 
 	const doAction = async(action, parameter) => {
 		switch(action) {

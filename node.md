@@ -64,19 +64,18 @@ type> i
 {
 	"plugins": ["@babel/plugin-proposal-class-properties","@babel/plugin-transform-runtime"]
 }
+
 hit escape, then hold shift and hit : 
 type> wq
 then enter  ,, to save
 
 /var/www/parcel_blueprint# npm install --save @babel/core
 
-
 npm install parcel-bundler --save
 
- root@pr0con:/var/www/parcel_blueprint/dist# rm -f /usr/sbin/npm /usr/sbin/node /usr/sbin/pm2
+root@pr0con:/var/www/parcel_blueprint/dist# rm -f /usr/sbin/npm /usr/sbin/node /usr/sbin/pm2
 root@pr0con:/var/www/parcel_blueprint/dist# ln -s /var/www/node/bin/node /usr/sbin/
 root@pr0con:/var/www/parcel_blueprint/dist#  ln -s /var/www/node/bin/npm /usr/sbin/
-root@pr0con:/var/www/parcel_blueprint/dist# ln -s /var/www/ode/bin/pm2 /usr/sbin/
-
+root@pr0con:/var/www/parcel_blueprint/dist# ln -s /var/www/node/bin/pm2 /usr/sbin/
 
 npm run start

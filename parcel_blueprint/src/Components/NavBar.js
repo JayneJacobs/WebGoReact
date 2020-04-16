@@ -10,12 +10,12 @@ width: 100vw;
 top: 0px;
 left: 0px;
 
-height: 10rem;
+height: 6.5rem;
 box-shadow: 0 0 1px 1px rgba(20,23,28,.1),0 3px 1px 0 rgba(20,23,28,.1);
 
 font-size: 2rem;
 color: #505763;
-background: #b9f;
+background: #f66;
 
 font-family: 'Hackman-Bold';
 
@@ -72,7 +72,7 @@ font-family: 'Hackman-Bold';
 			-webkit-transform: translate(-50%,-50%);
 			-ms-transform: translate(-50%,-50%);
 			transform: translate(-50%,-50%);
-		}		
+		}
 	}
 	#navbar-search-input-submit-btn:hover {
 		cursor: pointer;
@@ -98,14 +98,14 @@ font-family: 'Hackman-Bold';
 		
 		&:hover{
 			cursor:pointer;
-		}	
-	}			
+		}
+	}	
 }
 `;
 
 import { Button } from './Button.js';
-import { DropMenuLeft } from './DropMenuLeft';
-import { DropMenuRight } from './DropMenuRight';
+import { DropMenuLeft } from './DropMenuLeft.js';
+import { DropMenuRight } from './DropMenuRight.js';
 
 export function NavBar() {
 	const { setModal, loading, verifiedJwt, DropMenu, setDropMenu } = useContext(AppContext);
@@ -122,7 +122,7 @@ export function NavBar() {
 				<div id="styled-navbar-content-input-submit-btn">
 					<svg focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path><path fill="none" d="M0 0h24v24H0z"></path></svg>
 				</div>
-				<Button btype="white-button" text="Pretty Button" icon="/icons/20px/user.svg" />
+				<Button btype="white-button" text="Pretty Button" icon="" />
 
 				<div ud="navbar-divider"></div>
 
@@ -132,7 +132,7 @@ export function NavBar() {
 						<Button btype="blue-button" text="Sign Up!" icon="" onClick={(e) => setModal('signup')} />
 					</>
 				}
-				{ verifiedJwt && <div id="nav-ar-profile-icon" onMouseeOver={ (e) => setDropMenu('drop-menu-right')}></div>  }
+				{ verifiedJwt && <div id="nav-bar-profile-icon" onMouseeOver={ (e) => setDropMenu('drop-menu-right')}></div>  }
 				{ DropMenu === "drop-menu-left" &&	<DropMenuLeft /> }
 				{ DropMenu === "drop-menu-right" &&	<DropMenuRight /> }
 			</div>

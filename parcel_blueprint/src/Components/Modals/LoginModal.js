@@ -22,7 +22,7 @@ const StyledLogInModal = styled.div`
 		-ms-transform: translate(-50%,-50%);
 		transform: translate(-50%,-50%);
 		border-radius: 6px;
-		background: #fff;
+		background: #ff6;
 		color: #29303b;
 		max-width: 380px;
 		max-height: 500px;
@@ -42,13 +42,13 @@ const StyledLogInModal = styled.div`
 			#login-center-dialog-header-text {
 				display: inline-block;
 			}
+
 			#login-center-dialog-header-close {
 				font-size: 3.6rem;
 				display: inline-block;
 				width: 20px;
 				height: 20px;
-				background:
-				#686f7a;
+				background: #686f7a;
 				-webkit-mask: url('/icons/20px/cross.svg');
 				mask: url('/icons/20px/cross.svg');
 				float: right;
@@ -57,9 +57,10 @@ const StyledLogInModal = styled.div`
 				
 				&:hover {
 					cursor:pointer;
-				}					
-			}		
+				}
+			}
 		}
+
 		#login-center-dialog-form {
 			padding: 24px 24px 24px 24px;
 			
@@ -77,9 +78,7 @@ const StyledLogInModal = styled.div`
 			#login-center-dialog-form-email-field,
 			#login-center-dialog-form-password-field {
 				display: inline-block;
-				position: relative;
-				
-								
+				position: relative;	
 				input {
 					border-radius: 5px;
 					width: 100%;
@@ -87,10 +86,10 @@ const StyledLogInModal = styled.div`
 					font-size: 18px;
 					height: auto;
 					padding: 11px 60px 12px 40px;
-					border: 1px solid
-					#cacbcc;				
+					border: 1px solid #cacbcc;				
 				}
 			}
+
 			#login-center-dialog-form-email-field:before {
 				width: 1.8rem;
 				height: 1.8rem;
@@ -105,6 +104,7 @@ const StyledLogInModal = styled.div`
 				transform: translateY(-50%);
 				background: #cacbcc;
 			}
+
 			#login-center-dialog-form-password-field:before {
 				width: 1.8rem;
 				height: 1.8rem;
@@ -119,6 +119,7 @@ const StyledLogInModal = styled.div`
 				transform: translateY(-50%);
 				background: #cacbcc;			
 			}
+
 			#submit-login-form-btn {
 				width: 100%;
 				height: 4.8rem;
@@ -136,20 +137,19 @@ const StyledLogInModal = styled.div`
 				font-family: 'Hackman-Bold';	
 				
 				&:hover {
-					color: #fff;
+					color: #fbbs;
 					background-color: #992337;
-					border-color:
-					transparent;
+					border-color: transparent;
 					cursor: pointer;
-				}		
+				}	
 			}
 			
 			#login-center-dialog-form-password-field,
 			#submit-login-form-btn {
 				margin-top: .5rem;
 			}
-		}	
-	}	
+		}
+	}
 `;
 
 export function LogInModal() {
@@ -158,7 +158,7 @@ export function LogInModal() {
 	const [e, setE] = useState(''); //email
 	const [p, setP] = useState(''); //password...
 
-	const [errMsg, setErrMsg] = useState('');
+	
 
 	const handleSubmit = async() => {
 		let login_user = {
@@ -168,6 +168,7 @@ export function LogInModal() {
 
 		request("vAr", "login-user", JSON.stringify(login_user));
 	}
+
 	return (
 		<StyledLogInModal>
 			<div id="login-center-dialog">
@@ -179,8 +180,8 @@ export function LogInModal() {
 				<div id="login-center-dialog-form">
 					{ loginErrMsg !== '' && <div id="login-errors">{ loginErrMsg }</div>}
 					<span id="login-center-dialog-form-email-field"><input type="text" placeholder="Email" onChange={(e) => setE(e.target.value)} /></span>
-					<span id="login-center-dialog-form-password-field"><input type="password" placeholder="password" onChange={(e) => setP(e.target.value)} /></span>
-					<div id="submit-login-form-btn" onClick={(e) => handleSubmit()}>Login</div>
+					<span id="login-center-dialog-form-password-field"><input type="password" placeholder="Password" onChange={(e) => setP(e.target.value)} /></span>
+					<div id="submit-login-form-btn" onClick={(e) => handleSubmit()}>LoginHere</div>
 				</div>
 			</div>
 		</StyledLogInModal>

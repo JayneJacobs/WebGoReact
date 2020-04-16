@@ -7,7 +7,7 @@ const StyledPty = styled.div`
 	position: relative;
 	width: 990px;
 	max-width: 990px;
-	
+
 	height: 360px;
 	max-height: 360px;
 	
@@ -23,7 +23,7 @@ const StyledPty = styled.div`
 		height: 0px;
 		border: 0px;
 	}
-		
+	
 	&.terminal {
 		display: flex;
 	}
@@ -42,7 +42,7 @@ const StyledPty = styled.div`
 	}
 	
 	z-index: 3;
-	overflow:hidden;	
+	overflow:hidden;
 	margin-bottom: 1.5rem;
 `;
 

@@ -4,15 +4,15 @@ import { AppContext } from '../AppContext.js';
 
 
 const StyledSignUpModal = styled.div`
-position: fixed;
-z-index: 0;
-width: 100vw;
-height: 100vh;
-top: 0px;
-left: 0px;
-overflow: hidden;
-background-color: rgba(41,48,59,.8);
-z-index: 4;
+    position: fixed;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+    background-color: rgba(41,48,59,.8);
+    z-index: 4;
 
 #sign-up-center-dialog {
     position: relative;
@@ -56,10 +56,11 @@ z-index: 4;
             
             &:hover {
                 cursor:pointer;
-            }					
+            }		
         }
             
     }
+
     #sign-up-center-dialog-form {
         padding: 24px 24px 24px 24px;
                     
@@ -72,7 +73,7 @@ z-index: 4;
             background-color: #faebeb;
             color: #521822;
             font-weight: 400;
-        }	
+        }
                     
         #sign-up-center-dialog-form-full-name-field,
         #sign-up-center-dialog-form-email-field,
@@ -105,7 +106,8 @@ z-index: 4;
             -ms-transform: translateY(-50%);
             transform: translateY(-50%);
             background: #cacbcc;
-        }			
+        }
+
         #sign-up-center-dialog-form-email-field:before {
             width: 1.8rem;
             height: 1.8rem;
@@ -120,6 +122,7 @@ z-index: 4;
             transform: translateY(-50%);
             background: #cacbcc;
         }
+
         #sign-up-center-dialog-form-password-field:before {
             width: 1.8rem;
             height: 1.8rem;
@@ -141,7 +144,8 @@ z-index: 4;
             background: #dedfe0;
             display: inline-block;
             position: relative;				
-        }		
+        }
+        
         #sign-up-password-strength-indicator span:not(:first-child) {
             margin-left: 2px;	
         }
@@ -152,7 +156,7 @@ z-index: 4;
             text-align: center;
             line-height: 4.8rem;
             font-size: 1.8rem;
-            color: #fff;
+            color: #ff2;
             background-color: #ec5252;
             border: 1px solid transparent;
                 border-top-color: transparent;
@@ -165,12 +169,10 @@ z-index: 4;
             &:hover {
                 color: #fff;
                 background-color: #992337;
-                border-color:
-                transparent;
+                border-color: transparent;
                 cursor: pointer;
-            }		
+            }
         }
-        
 
         #sign-up-center-dialog-form-full-name-field,
         #sign-up-center-dialog-form-email-field,
@@ -178,8 +180,8 @@ z-index: 4;
         #submit-sign-up-form-btn {
             margin-top: .5rem;
         }
-    }	
-}	
+    }
+}
 `;
 
 export function SignUpModal() {

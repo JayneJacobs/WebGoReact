@@ -12,8 +12,7 @@ const loadA = keyframes`
 40% {
     box-shadow: 0 -2em;
     height: 5em;
-}`
-;
+}`;
 
 
 
