@@ -87,10 +87,10 @@ export function Pty() {
     useEffect(() => {
         if(ws === null) { setWs(new WebSocket('wss://pr0con.selfmanagedmusician.com:1200/pty')); }
         if(ws !== null && rs === 0 ) { configureWebsocket(); }		
-    },[ws,rs])
+    },[ws,rs]);
 
 
     return (
         <StyledPty id="GoPtyContainer" />
-    )
+    );
 }

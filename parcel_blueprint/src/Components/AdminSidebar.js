@@ -26,7 +26,7 @@ const StyledAdminSidebar = styled.div`
 		background: rgb(236,82,82);
 	}
 	margin-bottom: 1rem;
-`;
+`
 
 const DynamicIcon = styled.div`
 	background: #686f7a;
@@ -34,7 +34,7 @@ const DynamicIcon = styled.div`
 	height: 1.5rem;
 	mask: ${props => `url(${props.svgIconUrl}) no-repeat center;`});
 	mask-size: 1.5rem;
-`;
+`
 
  
 export function AdminSidebar() {

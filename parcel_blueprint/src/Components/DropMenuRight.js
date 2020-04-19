@@ -26,7 +26,7 @@ const StyledDropMenuRight = styled.div`
 	&:after {
 		left: auto;
 		right: 12px;
-		border-color: transparent transparent #fff transparent;
+		border-color: transparent transparent #ff6 transparent;
 	    top: -12px;
 	    box-sizing: border-box;
 	    border-style: solid;
@@ -81,10 +81,10 @@ export function DropMenuRight() {
 	
 	return(
 	  <StyledDropMenuRight>
-        { (dropMenuRight !== null && dropMenuRight.length > 0) && dropMenuRight.map((el, i) => (
+        {(dropMenuRight !== null && dropMenuRight.length > 0) && dropMenuRight.map((el, i) => (
 				<div key={i} className={el.type} onClick={(e) => doAction(el.action, el.parameter)}><DynamicIcon svgIconUrl={`/icons/20px/${el.icon}.svg`} />{ el.text }</div>
 			)
-			)}
+		)}
 	   </StyledDropMenuRight>
 	   )
 }

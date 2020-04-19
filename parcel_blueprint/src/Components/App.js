@@ -24,6 +24,9 @@ const StyledApp = styled.div`
 		#app-content-left {
 			padding-top: 1.5rem;
 		}
+		#app-content-right {
+			padding-top: 1.5rem;
+		}
 	}
 `;
 
@@ -57,7 +60,7 @@ export function App() {
 								<FileSystem forWhat="Back End"  fileSystemData={backEnd}  setPrismDataPath={setPrismDataPath} request={request}/>
 							</div>
 
-							<div id="app-content-right">
+							<div>
 								<Dashboard />
 							</div>
 						</div>

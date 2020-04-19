@@ -80,7 +80,7 @@ sudo vi /lib/systemd/system/mongod.service
 ExecStart=/usr/bin/mongod --auth --config /etc/mongod.conf
 service mongod restart
 systemctl daemon-reload
-service mongod restart�
+service mongod restart
 service mongod status
 ```
 

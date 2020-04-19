@@ -27,7 +27,7 @@ const StyledSignUpModal = styled.div`
     max-width: 380px;
     max-height: 500px;
     box-shadow: 0 0 1px 1px;
-    rgba(20,23,28,.1),0 3px 1px 0 rgba(20,23,28,.1);
+    // rgba(20,23,28,.1),0 3px 1px 0 rgba(20,23,28,.1);
     
     #sign-up-center-dialog-header {
         border-bottom: solid 1px #dedfe0;
@@ -57,10 +57,8 @@ const StyledSignUpModal = styled.div`
             &:hover {
                 cursor:pointer;
             }		
-        }
-            
+        }         
     }
-
     #sign-up-center-dialog-form {
         padding: 24px 24px 24px 24px;
                     
@@ -107,7 +105,6 @@ const StyledSignUpModal = styled.div`
             transform: translateY(-50%);
             background: #cacbcc;
         }
-
         #sign-up-center-dialog-form-email-field:before {
             width: 1.8rem;
             height: 1.8rem;
@@ -122,7 +119,6 @@ const StyledSignUpModal = styled.div`
             transform: translateY(-50%);
             background: #cacbcc;
         }
-
         #sign-up-center-dialog-form-password-field:before {
             width: 1.8rem;
             height: 1.8rem;
@@ -137,7 +133,6 @@ const StyledSignUpModal = styled.div`
             transform: translateY(-50%);
             background: #cacbcc;			
         }
-        
         #sign-up-password-strength-indicator span {
             width: 42px;
             height: 4px;
@@ -167,14 +162,15 @@ const StyledSignUpModal = styled.div`
             font-family: 'Hackman-Bold';	
             
             &:hover {
-                color: #fff;
-                background-color: #992337;
-                border-color: transparent;
+                color: #f35;
+                background-color:
+                #992337;
+                border-color:
+                transparent;
                 cursor: pointer;
             }
         }
 
-        #sign-up-center-dialog-form-full-name-field,
         #sign-up-center-dialog-form-email-field,
         #sign-up-center-dialog-form-password-field,
         #submit-sign-up-form-btn {
@@ -233,10 +229,10 @@ export function SignUpModal() {
         let create_user = {
             name: u,
             email: btoa(e),
-            password: btoa(p)
+            password: btoa(p),
         }
 
-        request("vAr", "create-user", JSON.stringify(create_user));
+        request("vAr","create-user", JSON.stringify(create_user));
     }
 
     return (
@@ -247,11 +243,11 @@ export function SignUpModal() {
                     <div id="sign-up-center-dialog-header-close" onClick={(e) => setModal('none')} ></div>
                 </div>
 
-                <div id="sign-up-centers-dialog-form">
+                <div id="sign-up-center-dialog-form">
 
                     { (errAFR === true || errENV === true || errPSE === true) &&
                         <div id="sign-up-validation-errors">
-                            Form Validation Errors.
+                            Validation Errors.
 							<ul>
                                 { errAFR && <li>All Fields Required</li> }
                                 { errENV && <li>Email is not valid.</li> }
@@ -275,10 +271,9 @@ export function SignUpModal() {
                     <span id="sign-up-center-dialog-form-password-field"><input type="password" placeholder="password" onChange={(e) => setP(e.target.value)} /></span>
 
                     <div id="sign-up-password-strength-indicator"><span id="pwd-has-upper-lower"></span><span id="pwd-has-number"></span><span className="pwd-is-special"></span><span className="pwd-is-long"></span></div>
-                    <div id="submit-signup-form-btn" onClick={(e) => handleSubmit()}>SignUp</div>
+                    <div id="submit-sign-up-form-btn" onClick={(e) => handleSubmit()}>SignUp</div>
                 </div>
             </div>
         </StyledSignUpModal>
     )
 }
-

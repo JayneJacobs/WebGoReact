@@ -27,7 +27,7 @@ const StyledLogInModal = styled.div`
 		max-width: 380px;
 		max-height: 500px;
 		box-shadow: 0 0 1px 1px;
-		rgba(20,23,28,.1),0 3px 1px 0 rgba(20,23,28,.1);
+		// rgba(20,23,28,.1),0 3px 1px 0 rgba(20,23,28,.1);
 		
 		#login-center-dialog-header {
 			border-bottom: solid 1px #dedfe0;
@@ -137,7 +137,7 @@ const StyledLogInModal = styled.div`
 				font-family: 'Hackman-Bold';	
 				
 				&:hover {
-					color: #fbbs;
+					color: #fbb;
 					background-color: #992337;
 					border-color: transparent;
 					cursor: pointer;

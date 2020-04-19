@@ -57,7 +57,7 @@ export function Databases() {
 				</div>
 				<div className="operations-layout-section box2"></div>
 				<div className="operations-layout-section box3"></div>
-				<div className="operations-layout-section sidebar">
+				<div className="operations-layout-section sidebar">  
 					{ websocketClients !== null && <div>Client Count: { websocketClients['CC'] }</div> }
 					
 					{ (websocketClients !== null && websocketClients['CIDS'].length > 0) && websocketClients['CIDS'].map((wsc, i) => (

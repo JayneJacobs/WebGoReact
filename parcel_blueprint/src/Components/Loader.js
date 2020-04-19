@@ -14,8 +14,6 @@ const loadA = keyframes`
     height: 5em;
 }`;
 
-
-
 //
 const StyledLoader = styled.div`
 	.loader,

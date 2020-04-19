@@ -16,7 +16,6 @@ export default function(props) {
     const [ verifiedJwt, setVerifiedJwt ] = useState(null);
 
 
-
     const [modal, setModal] = useState('none');
     const [loginErrMsg, setLoginErrMsg] = useState('');
 
@@ -71,29 +70,32 @@ export default function(props) {
     const configureWebsocket = async() => { 
         ws.onopen = function(open_event) { 
             ws.onmessage = function(event) {
-                console.log("this is the event: ");
-                console.log(event);
+
+				console.log(event);                
                 let tjo = JSON.parse(event.data);
+                console.log("this is the event data: ", tjo);
+                console.log(tjo);
                 switch(tjo['type']) {
                     case "server-ws-connect-success-msg":
                         setWsId(tjo['data']);
-                        alert("server ws connected: ");
+                        console.log("server ws connected: ");
                         request("^vAr^", 'get-fs-path', '/var/www/VFS/documentation');
                         request("^vAr^", 'get-fs-path', '/var/www/VFS/frontendCode');
                         request("^vAr^", 'get-fs-path', '/var/www/VFS/backendCode');
-                        console.log("connected to ws");
+                        console.log("request sent for files");
                         break;
                     case "server-ws-connect-success-jwt":
-                        alert("server ws jwt success ");
-                        setJwt(tjo['data']); 
+                        setJwt(tjo['data']);
+                        console.log("server ws jwt success ");
                         let usr = JSON.parse(tjo['data']);
                         setUser(usr);
+                        console.log(user);
                         request(tjo['jwt'], 'validate-jwt', 'noop');
                         setModal('none');
                         break;
                     case "server-ws-connect-login-failure":
                         setLoginErrMsg(tjo['data']);
-                        alert("Login Failure: ");
+                        console.log("Login Failure: ");
                         break;
                     case "user-already-exists":
                         alert("User Exists: ");
@@ -126,28 +128,32 @@ export default function(props) {
                             window.localStorage.removeItem('Pr0conJwt');
                         }
                         break;
-                    case "return-file-data":
-                        alert("file data return: ");
+                    case "rtn-file-data":
                         setPrismData(tjo['data']);
+                        console.log("file data return: ", tjo);
                         break; 
+                    case "mysql-dbs-list":
+                        setMySqlDatabases(JSON.parse(tjo['data']));
+                        break;
                     case "websocket-client-list":
-                        alert("websocket client list: ");
+                        console.log("websocket client list: ", tjo['data']);
                         setWebsocketClients(JSON.parse(tjo['data']));
                         break;  
                     default:
                         break;
                 }
+
             switch(tjo['path']) {
                 case "/var/www/VFS/frontendCode":
-                    console.log("Got frontendCode");
                     setFrontEnd(tjo);
+                    console.log("Got frontendCode", tjo);
                     break;
                 case "/var/www/VFS/backendCode":
                     setBackEnd(tjo);
-                    console.log("Got backendCode");
+                    console.log("Got backendCode", tjo);
                     break;
                 case "/var/www/VFS/documentation":
-                    console.log("Got documentation");
+                    console.log("Got documentation", tjo);
                     setDocumentation(tjo);
                     break;
             }
@@ -159,9 +165,9 @@ export default function(props) {
                 console.log(open_event);
             }
         ws.onerror = function(error_event) {
-                console.log(error_event);
+                console.log("error event: ", error_event);
         }
-           console.log("Sending Request message")
+           console.log("Sending register-client Request message")
            request('^vAr^','register-client-message','noop');
         }
     }
@@ -173,7 +179,7 @@ export default function(props) {
     }, [ws, rs])
 
     useEffect(() => {
-        console.log("AppContext forst useEffect JJNoteuseEffect");
+        console.log("AppContext forst useEffect ");
         if (jwt !== '^vAr^' && verifiedJwt) {
             console.log(jwt);
             console.log("JWT has been verified..."+verifiedJwt);
@@ -195,7 +201,7 @@ export default function(props) {
                 console.log(exp);
                 if(exp > now) {
                     console.log('Stored Jwt');
-                    ws.request(storedJwt,'validate-stored-jwt-token','noop');
+                    ws.request(storedJwt,'validate-stored-jwt','noop');
                 }
                 if(exp < now) {  
                     setLoading(false);
@@ -220,8 +226,8 @@ export default function(props) {
             const fetchData = async () => {
                 const resL = await axios('https://pr0con.selfmanagedmusician.com:1200/rest/api/ui/navbar-drop-menu-resources');
                 const resR = await axios('https://pr0con.selfmanagedmusician.com:1200/rest/api/ui/navbar-drop-menu-profile');
-                console.log(resL.data.elements);
-                console.log(resR.data.elements);
+                console.log("ResL Elements", resL.data.elements);
+                console.log("ResL Elements",resR.data.elements);
                 setDropMenuLeft(resL.data.elements);
                 setDropMenuRight(resR.data.elements);
 
@@ -230,7 +236,7 @@ export default function(props) {
             }
             fetchData();  
         }
-    },[loading])
+    },[loading]);
 
     return (
         <AppContext.Provider value={{
@@ -254,6 +260,7 @@ export default function(props) {
 
             prismData,
             prismDataPath,
+            setPrismDataPath,
 
             doLogOut,
             setBackEnd,
@@ -264,8 +271,8 @@ export default function(props) {
             frontEnd,
             backEnd,
             documentation,
- 
-            setPrismDataPath,
+  
+            
             setAdminSidebar,
 			mySqlDatabases,
 			showDatabaseOps, 

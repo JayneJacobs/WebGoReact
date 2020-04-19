@@ -79,7 +79,7 @@ font-family: 'Hackman-Bold';
 		background: rgb(236,82,82);
 		
 		svg {
-			fill: #fff;
+			fill: #f47;
 		}
 	}
 	

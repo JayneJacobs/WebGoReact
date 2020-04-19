@@ -85,6 +85,6 @@ export function DropMenuLeft() {
         { (dropMenuLeft !== null && dropMenuLeft.length > 0) && dropMenuLeft.map((el,i) => (
 				<div key={i} className={el.type} onClick={(e) => doAction(el.action, el.parameter)}><DynamicIcon svgIconUrl={`/icons/20px/${el.icon}.svg`} />{ el.text }</div>
 			))}
-    </ StyledDropMenuLeft>
+    </StyledDropMenuLeft>
     )
 }
