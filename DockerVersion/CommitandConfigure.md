@@ -40,4 +40,9 @@ type> nginx -t
 type> ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
 type> nginx reload
 
+passwd root
+New Password:
+
+service ssh start
+nmap 127.0.0.1
 

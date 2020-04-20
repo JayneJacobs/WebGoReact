@@ -62,6 +62,7 @@ apt-get install vim
 apt-get install ssh
 	-vi /etc/ssh/sshd_config	change port etc...
 	-apt-get install php curl php-cli php-mbstring git unzip php-fpm php-zip php-xml php-mysqlnd
+    Permit remote login: yes
 	
 	
 apt-get install wget
@@ -121,10 +122,11 @@ docker commit id pr0con2Jayne/ubuntu
 
 service php7.2-fpm start
 	-SHIT WORKED...
-service redis-server start
+
 @THIS POINT MYSQL IS WORKING / NGINX / PHPMYADMIN && REDIS
 ******>>>>> 
 trying mongod: make /var/www/mongodb.log  REMOVE 127.0.0.1 from /etc/mongod.conf <-----******
+
 mongod --fork --logpath /var/www/mongod.log   --config /etc/mongo.conf --auth
 @xbin>mongod --fork --logpath /var/www/mongod.log   --config /var/www/mongo.conf --auth
 	-MONGO WORKING @THIS Point
@@ -165,12 +167,13 @@ ls
 
 apt install php curl php-cli php-mbstring git unzip php-fpm php-zip php-xml php-mysqlnd
 ```
+docker commit id JayneJacobs/pr0conJayne
 
 PART II CREATION A COPY OF WORKING!!!
 docker image tag  JayneJacobs/ubuntu jaynejacobs/testing
-docker push pr0con/testing
-docker run -it -p 80:80 -p 443:443 -p 4242:4242 -p 3306:3306 -p 9000:9000 -p 27017:27017 -p 1234:1234 -p 5000:5000 -p 6379:6379 pr0con/testing
-docker run -dit -p 80:80 -p 443:443 -p 4242:4242 -p 3306:3306 -p 9000:9000 -p 27017:27017 -p 1234:1234 -p 5000:5000 -p 6379:6379 pr0con/testing
+docker push JayneJacobs/pr0conJayne
+docker run -it -p 80:80 -p 443:443 -p 4242:4242 -p 3306:3306 -p 9000:9000 -p 27017:27017 -p 1234:1234 -p 5000:5000 -p 6379:6379 JayneJacobs/pr0conJayne 
+docker run -dit -p 80:80 -p 443:443 -p 4242:4242 -p 3306:3306 -p 9000:9000 -p 27017:27017 -p 1234:1234 -p 5000:5000 -p 6379:6379 JayneJacobs/pr0conJayne
 //Testing has node and go now NEXT MAYBE https://stackoverflow.com/questions/12973777/how-to-run-a-shell-script-at-startup
 	service ssh start
 	service php7.2-fpm start
@@ -178,3 +181,12 @@ docker run -dit -p 80:80 -p 443:443 -p 4242:4242 -p 3306:3306 -p 9000:9000 -p 27
 	service redis-server start
 	service mysql start
 	mongod --fork --logpath /var/www/mongod.log   --config /etc/mongod.conf --auth
+
+
+## Final Commit
+exit container
+docker container -ls -a
+
+docker commit <id> pr0conJayne/ubuntu
+
+docker push
